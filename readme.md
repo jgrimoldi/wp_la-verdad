@@ -62,7 +62,7 @@
 
 ## WebSite
 
-![logo](./logo.jpeg)
+![logo](./logo.jpg)
 
 ---
 
