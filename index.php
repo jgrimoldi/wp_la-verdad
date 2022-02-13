@@ -1,33 +1,41 @@
-<?php
-date_default_timezone_set('America / Argentina / Rio_Gallegos');
-?>
-<!DOCTYPE html>
-<html lang="es">
+        <?php require_once('config.php'); ?>
+        <?php require_once(ROOT_PATH . '/includes/public_functions.php') ?>
+        <?php require_once(ROOT_PATH . '/includes/head_section.php'); ?>
+        <!-- ============== title ============== -->
+        <title>La Verdad - Noticias</title>
+    </head>
 
-<head>
-    <?php include_once('./includes/head_section.php') ?>
-    <!-- ============== title ============== -->
-    <title></title>
-</head>
+    <body>
+        <!-- ============== header ============== -->
+        <?php include(ROOT_PATH . '/includes/navbar.php') ?>
 
-<body>
-    <!-- ============== header ============== -->
-    <?php include_once('./includes/navbar.php') ?>
+        <!-- ============== articles ============== -->
+        <main>
+            <section class="container">
+                <?php
+                    $posts = getPublishedPosts();
+                    foreach($posts as $post):
+                        echo BASE_URL . '/static/img/' . $post['image'];
+                        echo "<a href='single_post.php?post-slug =" . $post['slug'] . "'";
+                        if (isset($post['topic']['name'])):
+                            echo '<a href= class="btn category"' . BASE_URL . 'filtered_posts.php?topic=' . $post['topic']['id'] . '">'
+                            . $post['topic']['name'] .
+                            '</a>';
+                        endif;
+                        echo $post['title'];
+                        echo date('F j, Y', strtotime($post["created_at"]));
+                    endforeach
+                ?>
+            </section>
+        </main>
 
-    <!-- ============== articles ============== -->
-    <main>
-        <section class="container">
+        <!-- ============== footer ============== -->
+        <?php include(ROOT_PATH . '/includes/footer.php') ?>
 
-        </section>
-    </main>
-
-    <!-- ============== footer ============== -->
-    <?php include_once('./includes/footer.php') ?>
-
-    <!-- ============== scripts ============== -->
-    <?php include_once('./includes/scripts.php') ?>
+        <!-- ============== scripts ============== -->
+        <?php require_once(ROOT_PATH . '/includes/scripts.php') ?>
 
 
-</body>
+    </body>
 
-</html>
+    </html>
