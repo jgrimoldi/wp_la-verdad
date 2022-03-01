@@ -9,8 +9,8 @@ if(!$connection){
 }
 
 // Set timezone: Argentina
-date_default_timezone_set('America / Argentina / Rio_Gallegos');
+date_default_timezone_set('America/Argentina/Rio_Gallegos');
 // Physical address where config resides
 define('ROOT_PATH', realpath(dirname(__FILE__)));
 // Points to the root of the website
-define('BASE_URL', 'http://localhost/');
+define('BASE_URL', 'http://localhost/wp_la-verdad/');

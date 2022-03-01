@@ -1,0 +1,76 @@
+@media screen and (max-width: 760px) {
+    :root {
+      --font-size-24: 1.6rem;
+      --font-size-30: 1.8rem;
+      --font-size-36: 3rem;
+    }
+  
+    .body-collapsible {
+      margin-left: 25.5rem;
+    }
+  
+    .navbar-collapsible {
+      width: 25.5rem;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .navbar-collapsible {
+      min-height: 100%;
+    }
+  
+    .form__inputs {
+      width: 100%;
+    }
+  
+    .topics__table {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    
+    .navbar{
+      max-height: 100vh;
+      justify-content: start !important;
+    }
+
+    .login {
+      width: 100%;
+      padding: 1rem 1rem;
+    }
+  
+    .login__form input {
+      width: 90%;
+    }
+  
+    .form {
+      width: 95%;
+    }
+  
+    .topics {
+      width: 95%;
+    }
+  
+    .action {
+      justify-content: center;
+    }
+    .action i {
+      margin-left: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 320px) {
+    :root {
+      --font-size-24: 1.4rem;
+      --font-size-30: 1.6rem;
+      --font-size-36: 2.6rem;
+    }
+  }
+  
+  @media (max-height: 896px) {
+    .navbar {
+      overflow-y: scroll;
+    }
+  }
+  
