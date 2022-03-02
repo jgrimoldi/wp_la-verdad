@@ -1,6 +1,5 @@
     <?php include('../config.php') ?>
     <?php include(ROOT_PATH . '/includes/signin.php') ?>
-    <?php // include(ROOT_PATH . '/admin/includes/admin_functions.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <?php if (isset($_SESSION['user'])) : ?>
         <!-- ---- css ---- -->

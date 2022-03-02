@@ -143,3 +143,13 @@
     display: block;
     color: #B00020; 
   }
+
+  .message{
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .message__text{
+    display: block;
+    color: #76bf42; 
+  }

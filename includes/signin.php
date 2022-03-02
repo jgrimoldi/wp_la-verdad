@@ -5,8 +5,6 @@
     $email = "";
     $errors = array();
 
-
-
     //login user
     if(isset($_POST['login_btn'])){
         $username = stringEscape($_POST['username']);
@@ -15,18 +13,14 @@
         if(empty($username)){array_push($errors, "Se requiere un usuario");}
         if(empty($password)){array_push($errors, "Se requiere una contraseña");}
         if(empty($errors)){
-            // $password = password_hash($password, PASSWORD_DEFAULT);
-            $sql_login = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
-
+            $sql_login = "SELECT * FROM users WHERE username='$username' LIMIT 1";
             $query_login = mysqli_query($connection, $sql_login);
+            $login_info = mysqli_fetch_assoc($query_login);
+            $hashed_password = $login_info['password'] ;
 
-
-            echo $username . "<br>";
-            echo $password;
-
-            if(mysqli_num_rows($query_login) > 0){
+            if(password_verify($password, $hashed_password)){
                 //get id
-                $register_user_id = mysqli_fetch_assoc($query_login)['id'];
+                $register_user_id = $login_info['id'];
 
                 // put in session array
                 $_SESSION['user'] = getUserById($register_user_id);
@@ -43,6 +37,7 @@
                 }
             }else{
                 array_push($errors, "Las credenciales son incorrectas");
+                array_push($errors, "El sistema reconoce mayúsuclas y minúsculas.");
             }
         }
     }
@@ -63,5 +58,6 @@
         $user = mysqli_fetch_assoc($query_id);
 
         return $user; // assoc array
-
     }
+
+?>

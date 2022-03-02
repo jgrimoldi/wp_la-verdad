@@ -1,9 +1,10 @@
-<?php include('../config.php') ?>
-    <?php // include(ROOT_PATH . '/admin/includes/admin_functions.php') ?>
+    <?php include('../config.php') ?>
+    <?php include(ROOT_PATH . '/admin/includes/admin_functions.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <link rel="stylesheet" href="<?php echo BASE_URL . 'admin/static/css/main.css' ?>" />
     <title>La Verdad | Temas </title>
-    </head>
+    <?php $topics = getAllTopics() ?>
+  </head>
 
     <body id="body">
       <!-- ---- collapsible ----  -->
@@ -12,9 +13,13 @@
     <main>
     <!-- ---- topic create ---- -->
         <section class="container">
+        <?php if ($isEditingTopic === true): ?>
+          <h2 class="container-title">Actualizar Temas</h2>
+        <?php else: ?>
           <h2 class="container-title">Administrar Temas</h2>
+          <?php endif ?>
             <div class="form ptrem">
-              <form action="" method="POST" class="form__inputs d-flex">
+              <form action="<?php echo BASE_URL . 'admin/topics.php' ?>" method="POST" class="form__inputs d-flex">
                 <?php if ($isEditingTopic === true): ?>
                   <input type="hidden" name="topic_id" value="<?php echo $topic_id ?>">
                 <?php endif ?>
@@ -33,7 +38,6 @@
     <!-- ---- topic view ---- -->
         <section class="container">
             <div class="topics">
-                <?php include(ROOT_PATH . '/includes/messages.php') ?>
                 <?php if (empty($topics)): ?>
                     <h3 class="topics-title">No hay temas para mostrar.</h3>
                 <?php else: ?>
@@ -44,14 +48,6 @@
                         <div class="box">Editar/Borrar</div>
                     </div>
                     <?php foreach ($topics as $key => $topic): ?>
-                    <!-- <div class="topics__table-row">
-                        <div class="box center">1</div>
-                        <div class="box">Policiales</div>
-                        <div class="box action">
-                            <a href="topics.php?edit-topic=<?php // echo $topic['id'] ?>"><i class="fas fa-pencil"></i></a>
-                            <a href="topics.php?delete-topic=<?php // echo $topic['id'] ?>"><i class="fas fa-trash"></i></a>
-                        </div>
-                    </div> -->
                     <div class="topics__table-row">
                       <div class="box center"><?php echo $key + 1 ?></div>
                       <div class="box"><?php echo $topic['name'] ?></div>
@@ -63,6 +59,7 @@
                     <?php endforeach ?>
                 </div>
                 <?php endif ?>
+                <?php include(ROOT_PATH . '/admin/includes/messages.php') ?>
             </div>
         </section>
     </main>

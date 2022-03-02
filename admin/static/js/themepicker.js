@@ -26,15 +26,15 @@ for (let i of switches) {
 
 function setTheme(theme) {
   if (theme == 'original') {
-    document.getElementById('switcher-id').href = './admin/static/css/themes/original.css';
+    document.getElementById('switcher-id').href = './static/css/themes/original.css';
   } else if (theme == 'red') {
-    document.getElementById('switcher-id').href = './admin/static/css/themes/contrast.css';
+    document.getElementById('switcher-id').href = './static/css/themes/contrast.css';
   } else if (theme == 'black') {
-    document.getElementById('switcher-id').href = './admin/static/css/themes/dark.css';
+    document.getElementById('switcher-id').href = './static/css/themes/dark.css';
   } else if (theme == 'pink') {
-    document.getElementById('switcher-id').href = './admin/static/css/themes/pink.css';
+    document.getElementById('switcher-id').href = './static/css/themes/pink.css';
   } else if (theme == 'green') {
-    document.getElementById('switcher-id').href = './admin/static/css/themes/blue.css';
+    document.getElementById('switcher-id').href = './static/css/themes/blue.css';
   }
   localStorage.setItem('style', theme);
 }

@@ -309,6 +309,17 @@ input[type="file"] {
   outline: none;
   font-family: "Montserrat", sans-serif;
   font-weight: var(--font-medium);
+}
+
+.form__inputs-input::-webkit-input-placeholder { /* Edge */
+  text-transform: uppercase;
+}
+
+.form__inputs-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  text-transform: uppercase;
+}
+
+.form__inputs-input::placeholder {
   text-transform: uppercase;
 }
 
@@ -316,6 +327,7 @@ input[type="file"] {
   background-color: var(--background-navbar);
   border: 2px solid var(--background-navbar);
   color: var(--font-color-t);
+  text-transform: uppercase;
   cursor: pointer;
 }
 

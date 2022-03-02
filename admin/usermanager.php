@@ -1,9 +1,10 @@
-<?php include('../config.php') ?>
-    <?php // include(ROOT_PATH . '/admin/includes/admin_functions.php') ?>
+    <?php include('../config.php') ?>
+    <?php include(ROOT_PATH . '/admin/includes/admin_functions.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
+    <?php $users = getAdminUsers() ?>
     <link rel="stylesheet" href="<?php echo BASE_URL . 'admin/static/css/main.css' ?>" />
     <title>La Verdad | Administrar Usuario </title>
-    </head>
+</head>
 
     <body id="body">
       <!-- ---- collapsible ----  -->
@@ -14,7 +15,6 @@
         <section class="container">
           <h2 class="container-title">Administrar Usuarios</h2>
             <div class="topics">
-                <?php include(ROOT_PATH . '/includes/messages.php') ?>
                 <?php if (empty($users)): ?>
                     <h3 class="topics-title">No hay usuarios para mostrar.</h3>
                 <?php else: ?>
@@ -27,26 +27,18 @@
                     </div>
                     <?php foreach ($users as $key => $user): ?>
                     <div class="topics__table-row">
-                        <div class="box center">1</div>
-                        <div class="box">John Doe</div>
-                        <div class="box">mail@correo.com</div>
-                        <div class="box action">
-                            <a href="user_c.php?edit-user=<?php echo $user['id'] ?>"><i class="fas fa-pencil"></i></a>
-                            <a href="user_c.php?delete-user=<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></a>
-                        </div>
-                    </div>
-                    <div class="topics__table-row">
                         <div class="box center"><?php echo $key + 1 ?></div>
-                        <div class="box"><?php echo $user['name'] ?></div>
+                        <div class="box"><?php echo $user['username'] ?></div>
                         <div class="box"><?php echo $user['email'] ?></div>
                         <div class="box action">
-                            <a href="user_c.php?edit-user=<?php echo $user['id'] ?>"><i class="fas fa-pencil"></i></a>
-                            <a href="user_c.php?delete-user=<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></a>
+                            <a href="usercreate.php?edit-admin=<?php echo $user['id'] ?>"><i class="fas fa-pencil"></i></a>
+                            <a href="usercreate.php?delete-admin=<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></a>
                         </div>
                     </div>
                     <?php endforeach ?>
                 </div>
                 <?php endif ?>
+                <?php include(ROOT_PATH . '/admin/includes/messages.php') ?>
             </div>
         </section>
     </main>
