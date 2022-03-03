@@ -9,8 +9,6 @@
     <!-- ---- css ---- -->
     <link rel="stylesheet" href="<?php echo BASE_URL . 'admin/static/css/style.css' ?>" />
     <link rel="stylesheet" href="<?php echo BASE_URL . 'admin/static/css/responsive.css' ?>" />
-    <!-- ---- css theme ---- -->
-    <link rel="stylesheet" id="switcher-id" href="">
     <!-- ---- font ---- -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

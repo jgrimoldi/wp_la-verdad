@@ -1,11 +1,9 @@
     <?php include('../config.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/admin_functions.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'admin/static/css/main.css' ?>" />
+    <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
+    <?php $roles = ['Admin', 'Author'] ?>
     <title>La Verdad | Crear Usuario </title>
-    <?php
-    $roles = ['Admin', 'Author'];
-    ?>
     </head>
 
     <body id="body">
@@ -14,9 +12,9 @@
       <!-- ---- content ---- -->
       <main>
         <section class="container">
-        <?php if ($isEditingUser === true) : ?>
-          <h2 class="container-title">Actualizar Usuario</h2>
-        <?php else : ?>
+          <?php if ($isEditingUser === true) : ?>
+            <h2 class="container-title">Actualizar Usuario</h2>
+          <?php else : ?>
             <h2 class="container-title">Crear Usuario</h2>
           <?php endif ?>
           <div class="form ptrem">
