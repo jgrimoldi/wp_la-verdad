@@ -13,10 +13,10 @@
         <!-- ---- content ---- -->
         <main>
             <section class="container">
-                <h2 class="container-title">Administrar Usuarios</h2>
+                <h2 class="container-title">Administrar Noticias</h2>
                 <div class="topics">
                     <?php if (empty($posts)) : ?>
-                        <h3 class="topics-title">No hay posts para mostrar.</h3>
+                        <h3 class="topics-title">No hay noticias para mostrar.</h3>
                     <?php else : ?>
                         <div class="topics__table post__table">
                             <div class="topics__table-row">

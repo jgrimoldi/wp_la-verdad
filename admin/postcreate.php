@@ -4,7 +4,7 @@
   <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
   <?php include(ROOT_PATH . '/admin/includes/admin_styles.php' )?>
   <?php $topics = getAllTopics() ?>
-  <title>La Verdad | Crear Post </title>
+  <title>La Verdad | Crear Noticias </title>
   </head>
 
   <body id="body">
@@ -14,9 +14,9 @@
     <main>
       <section class="container">
         <?php if ($isEditingPost === true) : ?>
-          <h2 class="container-title">Editar Post</h2>
+          <h2 class="container-title">Editar Noticias</h2>
         <?php else: ?>
-          <h2 class="container-title">Crear Post</h2>
+          <h2 class="container-title">Crear Noticias</h2>
         <?php endif ?>
         <div class="form">
           <form action="<?php echo BASE_URL . 'admin/postcreate.php' ?>" method="POST" enctype="multipart/form-data" class="form__inputs d-flex">
