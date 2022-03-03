@@ -27,13 +27,13 @@ for (let i of switches) {
 function setTheme(theme) {
   if (theme == 'original') {
     document.getElementById('switcher-id').href = './static/css/themes/original.css';
-  } else if (theme == 'red') {
+  } else if (theme == 'high-contrast') {
     document.getElementById('switcher-id').href = './static/css/themes/contrast.css';
   } else if (theme == 'black') {
     document.getElementById('switcher-id').href = './static/css/themes/dark.css';
   } else if (theme == 'pink') {
     document.getElementById('switcher-id').href = './static/css/themes/pink.css';
-  } else if (theme == 'green') {
+  } else if (theme == 'blue') {
     document.getElementById('switcher-id').href = './static/css/themes/blue.css';
   }
   localStorage.setItem('style', theme);

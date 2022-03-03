@@ -15,7 +15,7 @@
             <section class="container">
                 <h2 class="container-title">Administrar Usuarios</h2>
                 <div class="topics">
-                    <?php if (empty($users)) : ?>
+                    <?php if (empty($posts)) : ?>
                         <h3 class="topics-title">No hay posts para mostrar.</h3>
                     <?php else : ?>
                         <div class="topics__table post__table">
@@ -39,22 +39,22 @@
                                     <?php if ($_SESSION['user']['role'] == "Admin") : ?>
                                         <div class="box center">
                                             <?php if ($post['published'] == true) : ?>
-                                                <a href="posts.php?unpublish=<?php echo $post['id'] ?>"><i class="fas fa-check"></i></a>
+                                                <a href="postmanager.php?unpublish=<?php echo $post['id'] ?>"><i class="fas fa-check"></i></a>
                                             <?php else : ?>
-                                                <a href="posts.php?publish=<?php echo $post['id'] ?>"><i class="fas fa-times"></i></a>
+                                                <a href="postmanager.php?publish=<?php echo $post['id'] ?>"><i class="fas fa-times"></i></a>
                                             <?php endif ?>
                                         </div>
                                     <?php endif ?>
                                     <div class="box action">
-                                        <a href="postcreate.php?edit-post=<?php echo $user['id'] ?>"><i class="fas fa-pencil"></i></a>
-                                        <a href="postcreate.php?delete-post=<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></a>
+                                        <a href="postcreate.php?edit-post=<?php echo $post['id'] ?>"><i class="fas fa-pencil"></i></a>
+                                        <a href="postcreate.php?delete-post=<?php echo $post['id'] ?>"><i class="fas fa-trash"></i></a>
                                     </div>
                                 </div>
                             <?php endforeach ?>
                         </div>
                     <?php endif ?>
                 </div>
-                <?php include(ROOT_PATH . '/includes/messages.php') ?>
+                <?php include(ROOT_PATH . '/admin/includes/messages.php') ?>
             </section>
         </main>
         <!-- ---- footer ---- -->

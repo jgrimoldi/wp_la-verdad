@@ -112,15 +112,15 @@ function createPost($request_values)
     if (empty($topic_id)) {
         array_push($errors, "Elija un Tema para la noticia.");
     }
-
     // Get image name
-    $featured_image = $_FILES['featured_image']['name'];
+    $featured_image = $_FILES["userfile"]["name"];
+
     if (empty($featured_image)) {
-        array_push($errors, "Se requiere al menos una imagen.");
+        array_push($errors, "Se requiere al menos una imagen." . $_FILES['userfile']['error']);
     }
     // image file directory
-    $target = "../static/images/" . basename($featured_image);
-    if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+    $target = ROOT_PATH . "/admin/static/img/uploads/" . basename($featured_image);
+    if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $target)) {
         array_push($errors, "Ocurrio un error al subir la imagen. Contáctase con el servicio.");
     }
 
@@ -187,12 +187,12 @@ function updatePost($request_values)
         array_push($errors, "Falta el cuerpo de la noticia.");
     }
     // if new featured image has been provided
-    if (isset($_POST['featured_image'])) {
+    if (isset($_POST['userfile'])) {
         // Get image name
-        $featured_image = $_FILES['featured_image']['name'];
+        $featured_image = $_FILES['userfile']['name'];
         // image file directory
         $target = "../static/images/" . basename($featured_image);
-        if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+        if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $target)) {
             array_push($errors, "Hubo un fallo al subir la imagen.");
         }
     }

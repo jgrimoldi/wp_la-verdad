@@ -19,29 +19,36 @@
           <h2 class="container-title">Crear Post</h2>
         <?php endif ?>
         <div class="form">
-          <form action="<?php echo BASE_URL . 'admin/create_post.php' ?>" method="POST" enctype="multipart/form-data" class="form__inputs d-flex">
+          <form action="<?php echo BASE_URL . 'admin/postcreate.php' ?>" method="POST" enctype="multipart/form-data" class="form__inputs d-flex">
             
             <?php if ($isEditingPost === true) : ?>
               <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
             <?php endif ?>
 
             <input class="form__inputs-input" type="text" name="title" id="title" placeholder="Título de la Noticia" value="<?php echo $title ?>">
-            <input class="form__inputs-input input-file" type="file" name="featured_img" id="featured_img" multiple>
-            <textarea class="form__inputs-input input-textarea" name="body" id="bodytext" cols="30" rows="10" placeholder="Cuerpo de la Noticia"><?php echo $body ?></textarea>
+              <!-- MAX_FILE_SIZE must precede the file input field -->
+            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+            <!-- ---- file input for img ---- -->
+            <input class="form__inputs-input input-file" type="file" name="userfile" id="featured_image" multiple>
             <select class="form__inputs-input" name="topic_id" id="topic_id">
-              <option value="" selected disabled>Selecciona un Tema</option>
+              <?php if(empty($topics)): ?>
+                <option value="" selected disabled>LA CAJAS DE TEMAS ESTA VACÍA :C</option>
+              <?php else: ?>
+                <option value="" selected disabled>SELECCIONA UN TEMA</option>
+              <?php endif ?>
               <?php foreach ($topics as $topic) : ?>
                 <option value="<?php echo $topic['id'] ?>"><?php echo $topic['name'] ?></option>
               <?php endforeach ?>
             </select>
+            <textarea class="form__inputs-input input-textarea" name="body" id="bodytext" cols="30" rows="10" placeholder="Cuerpo de la Noticia"><?php echo $body ?></textarea>
 
             <!-- Only admin users can view publish input field -->
             <?php if ($_SESSION['user']['role'] == "Admin") : ?>
               <!-- display checkbox according to whether post has been published or not -->
               <?php if ($published == true) : ?>
-                <label for="publish">Publicado<input type="checkbox" value="1" name="publish" checked="checked">&nbsp;</label>
+                <div class="checkbox d-flex"><label class="form__inputs-label" for="publish">Publicado</label><input class="form__inputs-checkbox" type="checkbox" name="publish" id="publish" value="1" checked="checked"></div>
               <?php else : ?>
-                <label for="publish">Publicar<input type="checkbox" value="1" name="publish">&nbsp;</label>
+                <div class="checkbox d-flex"><label class="form__inputs-label" for="publish">Publicar</label><input class="form__inputs-checkbox" type="checkbox" name="publish" id="publish" value="1"></div>
               <?php endif ?>
             <?php endif ?>
             <!-- if editing post, display the update button instead of create button -->
