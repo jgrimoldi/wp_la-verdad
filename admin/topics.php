@@ -23,7 +23,7 @@
               <?php if ($isEditingTopic === true) : ?>
                 <input type="hidden" name="topic_id" value="<?php echo $topic_id ?>">
               <?php endif ?>
-              <input class="form__inputs-input" type="text" name="topic_name" id="topic_name" placeholder="Nombre del Tema" value="<?php echo $topic_name ?>">
+              <input class="form__inputs-input" type="text" name="topic_name" id="topic_name" placeholder="Nombre del Tema" value="<?php echo $topic_name ?>" autocomplete="off">
               <?php if ($isEditingTopic === true) : ?>
                 <input class="form__inputs-input btn-submit" type="submit" name="update_topic" id="update_topic" value="Actualizar Tema">
               <?php else : ?>
@@ -63,14 +63,7 @@
           </div>
         </section>
       </main>
-      <!-- ---- footer ---- -->
-      <footer></footer>
-      <!-- ---- fontawesome ---- -->
-      <script src="https://kit.fontawesome.com/65e563f321.js" crossorigin="anonymous"></script>
-      <!-- ---- menu ----  -->
-      <script src="<?php echo BASE_URL . 'admin/static/js/collapsible.js' ?>"></script>
-      <!-- ---- theme picker ---- -->
-      <script src="<?php echo BASE_URL . 'admin/static/js/themepicker.js' ?>"></script>
+      <?php include(ROOT_PATH . '/admin/includes/footer_section.php') ?>
     </body>
 
     </html>

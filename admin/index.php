@@ -3,17 +3,17 @@
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <?php if (isset($_SESSION['user'])) : ?>
         <!-- ---- css ---- -->
-        <link rel="stylesheet" href="<?php echo BASE_URL . 'admin/static/css/main.css' ?>" />
+        <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
         <!-- ---- title ---- -->
         <title>La Verdad | Dashboard </title>
     <?php else : ?>
         <title>La Verdad | Iniciar Sesión </title>
     <?php endif ?>
     </head>
-
     <?php if (isset($_SESSION['user'])) : ?>
-        <?php include(ROOT_PATH . '/admin/includes/dashboard.php') ?>
+        <?php include ROOT_PATH . '/admin/includes/dashboard.php' ?>
     <?php else : ?>
+
         <body>
             <main>
                 <section class="container h-100 middle-align">
@@ -36,3 +36,5 @@
             </main>
         </body>
     <?php endif ?>
+
+    </html>

@@ -16,7 +16,7 @@
         </div>
         <div class="navbar__links">
             <a href="<?php echo BASE_URL . 'admin/index.php' ?>">
-                <div class="link d-flex selected">
+                <div class="link d-flex">
                     <i class="fas fa-th-large" title="Dashboard"></i>
                     <h4>Dashboard</h4>
                 </div>
@@ -65,7 +65,7 @@
         </a> -->
         </div>
         <div class="navbar__profile">
-            <a href="#">
+            <a href="usercreate.php?edit-admin=<?php echo $_SESSION['user']['id'] ?>">
                 <div class="link d-flex">
                     <i class="fas fa-user" title="Username"></i>
                     <h4><?php echo $_SESSION['user']['username'] ?></h4>

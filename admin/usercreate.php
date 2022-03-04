@@ -20,9 +20,9 @@
           <div class="form ptrem">
             <form action="<?php echo BASE_URL . '/admin/usercreate.php' ?>" method="POST" class="form__inputs d-flex">
               <input class="form__inputs-input" type="text" name="username" id="username" placeholder="Nombre de Usuario" value="<?php echo $username ?>">
-              <input class="form__inputs-input" type="email" name="email" id="email" placeholder="Correo Electrónico" value="<?php echo $email ?>">
-              <input class="form__inputs-input" type="password" name="password" id="password" placeholder="Contraseña">
-              <input class="form__inputs-input" type="password" name="password_verify" id="password_verify" placeholder="Repetir Contraseña">
+              <input class="form__inputs-input" type="email" name="email" id="email" placeholder="Correo Electrónico" value="<?php echo $email ?>" autocomplete="off">
+              <input class="form__inputs-input" type="password" name="password" id="password" placeholder="Contraseña" autocomplete="new-password">
+              <input class="form__inputs-input" type="password" name="password_verify" id="password_verify" placeholder="Repetir Contraseña" autocomplete="repeat-new-password">
               <select class="form__inputs-input" name="role">
                 <option value="" selected disabled>Elegí un Rol</option>
                 <?php foreach ($roles as $key => $role) : ?>
@@ -41,14 +41,7 @@
           </div>
         </section>
       </main>
-      <!-- ---- footer ---- -->
-      <footer></footer>
-      <!-- ---- fontawesome ---- -->
-      <script src="https://kit.fontawesome.com/65e563f321.js" crossorigin="anonymous"></script>
-      <!-- ---- menu ----  -->
-      <script src="<?php echo BASE_URL . 'admin/static/js/collapsible.js' ?>"></script>
-      <!-- ---- theme picker ---- -->
-      <script src="<?php echo BASE_URL . 'admin/static/js/themepicker.js' ?>"></script>
+      <?php include(ROOT_PATH . '/admin/includes/footer_section.php') ?>
     </body>
 
     </html>
