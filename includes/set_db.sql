@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-03-2022 a las 23:42:41
+-- Tiempo de generación: 04-03-2022 a las 19:37:56
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -50,6 +50,18 @@ CREATE TABLE `post_topic` (
   `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sponsors`
+--
+
+CREATE TABLE `sponsors` (
+  `id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `image_text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -108,6 +120,12 @@ ALTER TABLE `post_topic`
   ADD KEY `topic_id` (`topic_id`);
 
 --
+-- Indices de la tabla `sponsors`
+--
+ALTER TABLE `sponsors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `topics`
 --
 ALTER TABLE `topics`
@@ -128,19 +146,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `post_topic`
 --
 ALTER TABLE `post_topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `sponsors`
+--
+ALTER TABLE `sponsors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
