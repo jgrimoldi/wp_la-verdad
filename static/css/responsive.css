@@ -1,65 +1,81 @@
 /* 1281px */
-@media (max-width:80.063rem) {
-    :root {
-        --font-size-body  : 1.8rem;
-        --font-size-social: 2.2rem;
-    }
+@media (max-width: 80.063rem) {
+  :root {
+    --font-size-body: 1.8rem;
+    --font-size-social: 2.2rem;
+  }
 
-    .navbar__container-link {
-        padding: .5rem 1.5rem;
-    }
+  .navbar__container-link {
+    padding: 0.5rem 1.5rem;
+  }
 }
 
 /* 1025px */
-@media (max-width:64.063rem) {}
+@media (max-width: 64.063rem) {
+}
 
 /* 961px */
-@media (max-width:60.063rem) {}
+@media (max-width: 60.063rem) {
+}
 
 /* 641px */
-@media (max-width:40.063rem) {
-    :root {
-        --font-size-body  : 1.6rem;
-        --font-size-social: 2rem;
-    }
+@media (max-width: 40.063rem) {
+  :root {
+    --font-size-body: 1.6rem;
+    --font-size-social: 2rem;
+  }
 
-    .navbar {
-        display: none;
-    }
+  .navbar {
+    display: none;
+  }
 
-    .navbar__container {
-        width: 100%;
-    }
+  .navbar__container {
+    width: 100%;
+  }
 
-    .navbar__container-link {
-        padding       : .5rem 1rem;
-        letter-spacing: .08rem;
-    }
+  .navbar__container-link {
+    padding: 0.5rem 1rem;
+    letter-spacing: 0.08rem;
+  }
 
-    .collapse {
-        display: block;
-    }
+  .collapse {
+    display: block;
+  }
+
+  .footer {
+    padding: 1rem 0;
+  }
 }
 
 /* 481px */
-@media (max-width:30.063rem) {
+@media (max-width: 30.063rem) {
+  .header {
+    padding: 1rem 1rem;
+  }
 
-    .header {
-        padding: 1rem 1rem;
-    }
+  .navbar__container-link {
+    border: none;
+    border-image-slice: inherit;
+    border-image-source: inherit;
+    padding: 0;
+    letter-spacing: inherit;
+  }
 
-    .navbar__container-link {
-        border             : none;
-        border-image-slice : inherit;
-        border-image-source: inherit;
-        padding            : 0;
-        letter-spacing     : inherit;
-    }
+  .footer__navbar {
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .footer__navbar-link {
+    flex: 1 1 auto;
+    padding: 1rem 0;
+  }
 }
 
 /* 320px */
-@media (max-width:20rem) {
-    .navbar {
-        padding: 1rem 1rem;
-    }
+@media (max-width: 20rem) {
+  .navbar {
+    padding: 1rem 1rem;
+  }
 }

@@ -14,3 +14,7 @@ date_default_timezone_set('America/Argentina/Rio_Gallegos');
 define('ROOT_PATH', realpath(dirname(__FILE__)));
 // Points to the root of the website
 define('BASE_URL', 'http://localhost/wp_la-verdad/');
+// Social networks
+define('FACEBOOK_URL', 'https://facebook.com/');
+define('TWITTER_URL', 'https://facebook.com/');
+define('INSTAGRAM_URL', 'https://facebook.com/');
