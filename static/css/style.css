@@ -1,3 +1,61 @@
+/* ========== TIMER ========== */ 
+#timer{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer{
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: var(--font-color-s);
+
+}
+
+.timer__info{
+    text-align: center;
+}
+
+.timer__info h1{
+    font-size: 8rem;
+    line-height: 7rem;
+    text-transform: uppercase;
+}
+
+.timer__info h2{
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+.timer__info p{
+    padding: 2rem;
+}
+
+.timer__countdown{
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.timer__countdown div{
+    padding: 2rem;
+    text-align: center;
+}
+
+.big-number{
+    font-size: 7rem;
+    line-height: 7rem;
+}
+
+.title{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
 /* ========== INDEX ========== */ 
 
 /* ========== SEARCHES ========== */ 

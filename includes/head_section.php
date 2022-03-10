@@ -31,7 +31,7 @@
     <!-- ============== css ============== -->
     <link rel="stylesheet" href="<?php echo BASE_URL . 'static/css/base.css' ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="<?php echo BASE_URL . 'static/css/style.css' ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="<?php echo BASE_URL . 'static/css/responsive.css' ?>" as="style" media="(max-width: 968px)" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="<?php echo BASE_URL . 'static/css/responsive.css' ?>" as="style" media="(max-width: 1285px)" onload="this.onload=null;this.rel='stylesheet'">
 
     <!-- ============== fonts ============== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

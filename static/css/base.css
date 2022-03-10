@@ -221,7 +221,7 @@ footer {
 
 .footer__social-img {
   width: 100%;
-  max-width: 40rem;
+  max-width: 30rem;
 }
 
 .footer__social-img img {
@@ -268,4 +268,70 @@ footer {
 .footer__copyright-text a {
   font-size: var(--font-size-footer);
   color: var(--font-color-s);
+}
+
+
+/* ========== PAGE404 ========== */
+
+.errorpage{
+  width: 100%;
+  min-height: 100vh;
+
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  color: var(--font-color-s);
+  text-align: center;
+}
+
+.errorpage__title{
+  font-size: 12rem;
+}
+
+.errorpage__principal{
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.errorpage__principal-title{
+  width: 40%;
+}
+
+.errorpage__principal-title h2{
+  font-size: 8rem;
+}
+
+.errorpage__principal-img{
+  width: 60%;
+}
+
+.errorpage__principal-img img{
+  max-width: 100%;
+  width: 100%;
+  height: auto; 
+  margin: 0 auto;
+}
+
+.errorpage__help{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.errorpage__help-links{
+  width: 60%;
+  margin: 0 auto;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.errorpage__help-links a{
+  padding: 1rem;
+  color: var(--font-color-s);
+  text-transform: uppercase;
 }
