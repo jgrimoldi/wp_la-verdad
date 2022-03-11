@@ -16,6 +16,31 @@
 
 /* 961px */
 @media (max-width: 60.063rem) {
+  .errorpage__title{
+    font-size: 9rem;
+  }
+
+  .errorpage__principal{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .errorpage__principal-title{
+    width: 100%;
+  }
+  
+  .errorpage__principal-title h2{
+    font-size: 4rem;
+  }
+
+  .errorpage__principal-img{
+    width: 60%;
+  }
+
+  .errorpage__help-links{
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* 641px */
@@ -70,6 +95,10 @@
   .footer__navbar-link {
     flex: 1 1 auto;
     padding: 1rem 0;
+  }
+
+  .errorpage__title{
+    font-size: 6rem;
   }
 }
 
