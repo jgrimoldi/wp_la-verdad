@@ -4,7 +4,7 @@
   <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
   <?php include(ROOT_PATH . '/admin/includes/admin_styles.php' )?>
   <?php $topics = getAllTopics() ?>
-  <title>La Verdad | Crear Noticias </title>
+  <title>Admin | Crear Noticias </title>
   </head>
 
   <body id="body">

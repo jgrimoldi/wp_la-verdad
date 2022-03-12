@@ -7,7 +7,7 @@
   <!-- ---- main ---- -->
   <main>
     <section class="container">
-      <h2 class="container-title">Dashboard</h2>
+      <h2 class="container-title">Sponsors</h2>
       <div class="container__content">
         <div class="sponsors d-flex">
           <form action="<?php echo BASE_URL . 'admin/index.php' ?>" method="post" enctype="multipart/form-data">

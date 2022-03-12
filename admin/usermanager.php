@@ -3,7 +3,7 @@
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
     <?php $users = getAdminUsers() ?>
-    <title>La Verdad | Administrar Usuario </title>
+    <title>Admin | Administrar Usuario </title>
     </head>
 
     <body id="body">

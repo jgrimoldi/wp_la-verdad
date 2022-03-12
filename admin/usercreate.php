@@ -3,7 +3,7 @@
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
     <?php $roles = ['Admin', 'Author'] ?>
-    <title>La Verdad | Crear Usuario </title>
+    <title>Admin | Crear Usuario </title>
     </head>
 
     <body id="body">

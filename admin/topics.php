@@ -3,7 +3,7 @@
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
     <?php $topics = getAllTopics() ?>
-    <title>La Verdad | Temas </title>
+    <title>Admin | Temas </title>
     </head>
 
     <body id="body">

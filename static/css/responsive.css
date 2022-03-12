@@ -16,6 +16,10 @@
 
 /* 961px */
 @media (max-width: 60.063rem) {
+  .index{
+    flex-direction: column;
+  }
+
   .errorpage__title{
     font-size: 9rem;
   }

@@ -4,7 +4,7 @@
     <?php include(ROOT_PATH . '/admin/includes/head_section.php') ?>
     <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
     <?php $posts = getAllPosts() ?>
-    <title>La Verdad | Administrar Post </title>
+    <title>Admin | Administrar Post </title>
     </head>
 
     <body id="body">

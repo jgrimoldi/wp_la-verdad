@@ -5,7 +5,7 @@
         <!-- ---- css ---- -->
         <?php include(ROOT_PATH . '/admin/includes/admin_styles.php') ?>
         <!-- ---- title ---- -->
-        <title>La Verdad | Dashboard </title>
+        <title>Admin | Dashboard </title>
     <?php else : ?>
         <title>La Verdad | Iniciar Sesión </title>
     <?php endif ?>
