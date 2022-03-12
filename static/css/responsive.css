@@ -12,36 +12,42 @@
 
 /* 1025px */
 @media (max-width: 64.063rem) {
+  .news {
+    justify-content: center;
+  }
+  .small-new {
+    max-width: 100%;
+  }
 }
 
 /* 961px */
 @media (max-width: 60.063rem) {
-  .index{
-    flex-direction: column;
+  .index {
+    flex-direction: column-reverse;
   }
 
-  .errorpage__title{
+  .errorpage__title {
     font-size: 9rem;
   }
 
-  .errorpage__principal{
+  .errorpage__principal {
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .errorpage__principal-title{
+  .errorpage__principal-title {
     width: 100%;
   }
-  
-  .errorpage__principal-title h2{
+
+  .errorpage__principal-title h2 {
     font-size: 4rem;
   }
 
-  .errorpage__principal-img{
+  .errorpage__principal-img {
     width: 60%;
   }
 
-  .errorpage__help-links{
+  .errorpage__help-links {
     width: 100%;
     justify-content: center;
   }
@@ -71,6 +77,14 @@
     display: block;
   }
 
+  .news__article-img {
+    height: 70vh;
+  }
+
+  .news__article-info {
+    bottom: 25%;
+  }
+
   .footer {
     padding: 1rem 0;
   }
@@ -90,6 +104,10 @@
     letter-spacing: inherit;
   }
 
+  .index {
+    width: 100%;
+  }
+
   .footer__navbar {
     align-items: center;
     justify-content: center;
@@ -101,7 +119,7 @@
     padding: 1rem 0;
   }
 
-  .errorpage__title{
+  .errorpage__title {
     font-size: 6rem;
   }
 }
