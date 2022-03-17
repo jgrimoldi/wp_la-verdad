@@ -41,6 +41,10 @@
     width: 100%;
     justify-content: center;
   }
+
+  .related {
+    width: 49%;
+  }
 }
 
 /* 641px */
@@ -61,6 +65,18 @@
   .navbar__container-link {
     padding: 0.5rem 1rem;
     letter-spacing: 0.08rem;
+  }
+
+  .post__info-budget {
+    white-space: nowrap;
+  }
+
+  .post__info-created {
+    max-width: inherit;
+  }
+
+  .related {
+    width: 100%;
   }
 
   .collapse {
@@ -86,6 +102,10 @@
     letter-spacing: inherit;
   }
 
+  .post__title {
+    font-size: 3.5rem;
+  }
+
   .footer__navbar {
     align-items: center;
     justify-content: center;
@@ -106,5 +126,12 @@
 @media (max-width: 20rem) {
   .navbar {
     padding: 1rem 1rem;
+  }
+  .post__info-created {
+    white-space: inherit;
+  }
+
+  .post__info-budget {
+    white-space: inherit;
   }
 }

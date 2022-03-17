@@ -19,7 +19,7 @@
   --font-size-h3: calc(var(--font-size-body) * 1.05);
   --font-size-icons: calc(var(--font-size-body) + 0.4);
   --font-size-social: 3.5rem;
-  --font-size-footer: calc(var(--font-size-body) - 0.2);
+  --font-size-footer: calc(var(--font-size-body) - 0.2rem);
   --line-height-body: 1.5em;
   --line-height-h: 1.2em;
 }

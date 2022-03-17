@@ -6,7 +6,7 @@
 function getPublishedPosts()
 {
     global $connection;
-    $sql_posts = "SELECT * FROM posts WHERE published = true";
+    $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC";
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
@@ -74,7 +74,8 @@ function getTopicNameById($id)
  *  Returns clicked post    * 
  ****************************/
 
-function getPost($slug){
+function getPost($slug)
+{
     global $connection;
 
     $post_slug = $_GET['post-slug'];
@@ -83,7 +84,7 @@ function getPost($slug){
 
     $post = mysqli_fetch_assoc($query_slug);
 
-    if($post){
+    if ($post) {
         $post['topic'] = getPostTopic($post['id']);
     }
 
@@ -94,20 +95,22 @@ function getPost($slug){
  *  Returns all topics      * 
  ****************************/
 
- function getAllTopics(){
-     global $connection;
-     $sql_topics = "SELECT * FROM topics";
-     $query_topics = mysqli_query($connection, $sql_topics);
-     $topics = mysqli_fetch_all($query_topics, MYSQLI_ASSOC);
+function getAllTopics()
+{
+    global $connection;
+    $sql_topics = "SELECT * FROM topics";
+    $query_topics = mysqli_query($connection, $sql_topics);
+    $topics = mysqli_fetch_all($query_topics, MYSQLI_ASSOC);
 
-     return $topics;
- }
+    return $topics;
+}
 
- /***************************
+/***************************
  *  Returns all sponsors      * 
  ****************************/
 
-function getAllSponsors(){
+function getAllSponsors()
+{
     global $connection;
     $sql_sponsors = "SELECT * FROM sponsors";
     $query_sponsors = mysqli_query($connection, $sql_sponsors);
@@ -115,3 +118,36 @@ function getAllSponsors(){
 
     return $sponsors;
 }
+
+/***************************
+ *  Get Last Posts           * 
+ ****************************/
+
+function getLastPosts($post_id, $records)
+{
+    global $connection;
+
+    $sql_posts = "SELECT * FROM posts WHERE published = true AND id <> " . $post_id . " ORDER BY created_at DESC LIMIT " . $records;
+    $query_posts = mysqli_query($connection, $sql_posts);
+
+    $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
+
+    $final_posts = array();
+    foreach ($posts as $post) {
+        $post['topic'] = getPostTopic($post['id']);
+        array_push($final_posts, $post);
+    }
+
+    return $final_posts;
+}
+
+/***************************
+ * Add View           * 
+ ****************************/
+
+ function addView($post_id){
+     global $connection;
+
+    $query = "UPDATE `posts` SET `views`= views + 1 WHERE `id` = " . $post_id;
+    mysqli_query($connection, $query);
+ }

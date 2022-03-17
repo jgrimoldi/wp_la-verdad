@@ -1,16 +1,10 @@
 <header class="container header">
     <div class="header__container d-flex">
         <div class="header__container-img">
-            <img class="header-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logo.svg' ?>" alt="Imagen">
+            <img class="header-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logo.svg' ?>" alt="Logo LV de la Verdad Blanco">
         </div>
         <div class="header__container-img">
-            <img class="header-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logo.svg' ?>" alt="Imagen">
-        </div>
-        <div class="header__container-img">
-            <img class="header-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logo.svg' ?>" alt="Imagen">
-        </div>
-        <div class="header__container-img">
-            <img class="header-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logo.svg' ?>" alt="Imagen">
+            <img class="header-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logotipo.svg' ?>" alt="Logotipo La Verdad Blanco">
         </div>
     </div>
 </header>

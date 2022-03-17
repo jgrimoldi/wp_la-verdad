@@ -6,7 +6,7 @@
     </section>
     <section class="container-fluid footer__social d-flex">
         <div class="footer__social-img">
-            <img class="footer-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/logo.svg' ?>" alt="Imagen">
+            <img class="footer-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/isologo.svg' ?>" alt="Imagen">
         </div>
         <div class="footer__social-networks">
             <h3>Seguinos en Facebook!</h3>
