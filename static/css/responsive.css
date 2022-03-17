@@ -12,20 +12,10 @@
 
 /* 1025px */
 @media (max-width: 64.063rem) {
-  .news {
-    justify-content: center;
-  }
-  .small-new {
-    max-width: 100%;
-  }
 }
 
 /* 961px */
 @media (max-width: 60.063rem) {
-  .index {
-    flex-direction: column-reverse;
-  }
-
   .errorpage__title {
     font-size: 9rem;
   }
@@ -77,14 +67,6 @@
     display: block;
   }
 
-  .news__article-img {
-    height: 70vh;
-  }
-
-  .news__article-info {
-    bottom: 25%;
-  }
-
   .footer {
     padding: 1rem 0;
   }
@@ -102,10 +84,6 @@
     border-image-source: inherit;
     padding: 0;
     letter-spacing: inherit;
-  }
-
-  .index {
-    width: 100%;
   }
 
   .footer__navbar {

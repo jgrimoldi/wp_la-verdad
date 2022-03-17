@@ -15,6 +15,6 @@ define('ROOT_PATH', realpath(dirname(__FILE__)));
 // Points to the root of the website
 define('BASE_URL', 'http://localhost/wp_la-verdad/');
 // Social networks
-define('FACEBOOK_URL', 'https://facebook.com/');
-define('TWITTER_URL', 'https://facebook.com/');
-define('INSTAGRAM_URL', 'https://facebook.com/');
+define('FACEBOOK_URL', 'https://facebook.com/LaVerdad-109301787920924');
+define('TWITTER_URL', 'https://twitter.com/');
+define('INSTAGRAM_URL', 'https://instagram.com/');

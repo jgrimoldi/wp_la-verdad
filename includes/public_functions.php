@@ -102,3 +102,16 @@ function getPost($slug){
 
      return $topics;
  }
+
+ /***************************
+ *  Returns all sponsors      * 
+ ****************************/
+
+function getAllSponsors(){
+    global $connection;
+    $sql_sponsors = "SELECT * FROM sponsors";
+    $query_sponsors = mysqli_query($connection, $sql_sponsors);
+    $sponsors = mysqli_fetch_all($query_sponsors, MYSQLI_ASSOC);
+
+    return $sponsors;
+}
