@@ -8,6 +8,8 @@ if(!$connection){
     die("Error al conectar a la base de datos: <br>" . mysqli_connect_errno() . "-" . mysqli_connect_error());
 }
 
+// Set locale in Spanish
+setlocale(LC_ALL,"es_ES");
 // Set timezone: Argentina
 date_default_timezone_set('America/Argentina/Rio_Gallegos');
 // Physical address where config resides

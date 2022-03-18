@@ -20,9 +20,9 @@
     <main>
         <section class="container">
             <?php
-                echo '<h1> Articulos en' . getTopicNameById($topic_id) . '</h1>';
+                echo '<h1> Articulos en ' . getTopicNameById($topic_id) . '</h1>';
                 foreach($posts as $post):
-                    echo BASE_URL . '/static/img/' . $post['image'];
+                    echo BASE_URL . 'static/img/' . $post['image'];
                     echo "<a href='single_post.php?post-slug =" . $post['slug'] . "'";
                     if (isset($post['topic']['name'])):
                         echo '<a href= class="btn category"' . BASE_URL . 'filtered_posts.php?topic=' . $post['topic']['id'] . '">'

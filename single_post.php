@@ -6,12 +6,28 @@
     if (isset($_GET['post-slug'])) {
         $post = getPost($_GET['post-slug']);
     }
-    $topics = getAllTopics();
+    $topics = getPostTopic($post['id']);
     ?>
+    <style>
+        .item-1 {
+            z-index: 2;
+            opacity: 1;
+            background: url(<?php echo BASE_URL . 'static/img/uploads/' . $post['image']; ?>);
+            background-size: cover;
+        }
+
+        .item-2 {
+            background: url(<?php echo BASE_URL . 'static/img/uploads/' . $post['image']; ?>);
+            background-size: cover;
+        }
+
+        .item-3 {
+            background: url(<?php echo BASE_URL . 'static/img/uploads/' . $post['image']; ?>);
+            background-size: cover;
+        }
+    </style>
     <!-- ============== title ============== -->
-    <title>La Verdad | <?php if (isset($post['title'])) {
-                            echo $post['title'];
-                        } ?> </title>
+    <title>La Verdad | <?php if (isset($post['title'])) {echo $post['title'];}else{ echo 'No se encontro la noticia'; } ?> </title>
     </head>
 
     <body>
@@ -51,15 +67,15 @@
                     <?php addView($post['id']) ?>
                     <section class="container-fluid post">
                         <article class="d-flex post__info">
-                            <div class="post__info-budget"><?php echo $post['topic']['name'] ?>, Recital Recital Recital</div>
-                            <div class="post__info-created"><?php echo $post['created_at'] ?></div>
+                            <strong class="post__info-budget"><?php echo $post['topic']['name'] ?></strong>
+                            <strong class="post__info-created"><?php echo $post['created_at'] ?></strong>
                         </article>
                         <div class="post__background">
                             <h1 class="post__title"><?php echo $post['title']; ?></h1>
                             <div class="post__imgs">
-                                <?php echo '<span id="item-1" class="item" style="background-image:url(' . BASE_URL . 'static/img/uploads/' . $post['image'] . ')"></span>'; ?>
-                                <?php echo '<span id="item-2" class="item" style="background-image:url(' . BASE_URL . 'static/img/uploads/' . $post['image'] . ')"></span>'; ?>
-                                <?php echo '<span id="item-3" class="item" style="background-image:url(' . BASE_URL . 'static/img/uploads/' . $post['image'] . ')"></span>'; ?>
+                                <span id="item-1" class="item"></span>
+                                <span id="item-2" class="item"></span>
+                                <span id="item-3" class="item"></span>
                                 <div class="carousel-item item-1">
                                     <a href="#item-3" class="arrow-prev arrow"></a>
                                     <a href="#item-2" class="arrow-next arrow"></a>

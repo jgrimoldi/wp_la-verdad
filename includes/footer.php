@@ -1,8 +1,8 @@
 <footer class="container footer">
     <section class="container-fluid footer__navbar d-flex">
-        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'includes/contact.php' ?>" target="_blank" rel="noopener noreferrer">Contacto</a>
-        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'includes/terms.php' ?>" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
-        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'includes/classifieds.php' ?>" target="_blank" rel="noopener noreferrer">Clasificados</a>
+        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'contact.php' ?>" target="_blank" rel="noopener noreferrer">Contacto</a>
+        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'terms.php' ?>" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'classifieds.php' ?>" target="_blank" rel="noopener noreferrer">Clasificados</a>
     </section>
     <section class="container-fluid footer__social d-flex">
         <div class="footer__social-img">
