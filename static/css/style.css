@@ -159,6 +159,7 @@
   font-size: 1.6rem;
   color: var(--font-color-s);
   text-transform: uppercase;
+  box-shadow: rgb(50, 50, 93, 0.25) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.3) -3px -3px 6px 1px inset;
 }
 
 .sponsors__box{
@@ -367,4 +368,36 @@
 
 .related__resume-created {
   font-size: var(--font-size-footer);
+}
+
+/* ========== FILTERED_POSTS ========== */
+
+.filtered{
+  width: 90%;
+  margin: 0 auto;
+
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.filtered__title{
+  padding: 2rem;
+  color: var(--font-color-s);
+  text-align: center;
+}
+
+.filtered__title-topic{
+  letter-spacing: .2rem;
+  text-transform: uppercase;
+}
+
+.filtered__item{
+  padding: .5rem;
+  flex: 1 0 33%;
+}
+
+.filtered__item .related{
+  width: auto;;
 }

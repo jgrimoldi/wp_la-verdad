@@ -27,7 +27,7 @@
 
             <input class="form__inputs-input" type="text" name="title" id="title" placeholder="Título de la Noticia" value="<?php echo $title ?>">
             <!-- ---- file input for img ---- -->
-            <input class="form__inputs-input input-file" type="file" name="userfile" id="featured_image">
+            <input class="form__inputs-input input-file" type="file" name="userfiles[]" id="featured_image" multiple>
             <select class="form__inputs-input" name="topic_id" id="topic_id">
               <?php if(empty($topics)): ?>
                 <option value="" selected disabled>LA CAJAS DE TEMAS ESTA VACÍA :C</option>

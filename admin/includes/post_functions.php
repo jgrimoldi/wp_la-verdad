@@ -34,15 +34,15 @@ if (isset($_GET['delete-post'])) {
 
 // if user clicks the publish post button
 if (isset($_GET['publish']) || isset($_GET['unpublish'])) {
-	$message = "";
-	if (isset($_GET['publish'])) {
-		$message = "La noticia ha sido publicada.";
-		$post_id = $_GET['publish'];
-	} else if (isset($_GET['unpublish'])) {
-		$message = "La noticia ya no se vera en el portal.";
-		$post_id = $_GET['unpublish'];
-	}
-	togglePublishPost($post_id, $message);
+    $message = "";
+    if (isset($_GET['publish'])) {
+        $message = "La noticia ha sido publicada.";
+        $post_id = $_GET['publish'];
+    } else if (isset($_GET['unpublish'])) {
+        $message = "La noticia ya no se vera en el portal.";
+        $post_id = $_GET['unpublish'];
+    }
+    togglePublishPost($post_id, $message);
 }
 
 /* - - - - - - - - - - 
@@ -113,37 +113,55 @@ function createPost($request_values)
         array_push($errors, "Elija un Tema para la noticia.");
     }
     // Get image name
-    $featured_image = $_FILES["userfile"]["name"];
+    $folder = ROOT_PATH . "/static/img/uploads/";
+    $allowedTypes = array('jpg', 'png', 'jpeg', 'webp');
 
-    if (empty($featured_image)) {
-        array_push($errors, "Se requiere al menos una imagen." . $_FILES['userfile']['error']);
-    }
-    // image file directory
-    $target = ROOT_PATH . "/static/img/uploads/" . basename($featured_image);
-    if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $target)) {
-        array_push($errors, "Ocurrio un error al subir la imagen. Contáctase con el servicio.");
-    }
+    $fileNames = array_filter($_FILES['userfiles']['name']);
+    if (!empty($fileNames)) {
 
-    // Ensure that no post is saved twice. 
-    $post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
-    $result = mysqli_query($connection, $post_check_query);
+        $stringFiles = implode(",", $fileNames);
 
-    if (mysqli_num_rows($result) > 0) { // if post exists
-        array_push($errors, "Ya existe un post con este título. Verifique que sea correcto.");
-    }
+        foreach ($fileNames as $key => $files) {
+            $fileName = basename($_FILES['userfiles']['name'][$key]);
+            $target = $folder . $fileName;
 
-    // create post if there are no errors in the form
-    if (count($errors) == 0) {
-        $query = "INSERT INTO posts (user_id, title, slug, image, body, published, created_at, updated_at) VALUES(1, '$title', '$post_slug', '$featured_image', '$body', $published, now(), now())";
-        if (mysqli_query($connection, $query)) { // if post created successfully
-            $inserted_post_id = mysqli_insert_id($connection);
-            // create relationship between post and topic
-            $sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
-            mysqli_query($connection, $sql);
+            $fileType = pathinfo($target, PATHINFO_EXTENSION);
+            if (in_array($fileType, $allowedTypes)) {
+                if (!move_uploaded_file($_FILES['userfiles']['tmp_name'][$key], $target)) {
+                    array_push($errors, "No se pudo subir el archivo.");
+                }
+            } else {
+                array_push($errors, "No se pudo subir. El archivo debe tener extensión jpg/png/jpeg/webp");
+            }
+        }
 
-            $_SESSION['message'] = "La noticia fue creada correctamente.";
-            header('location: postmanager.php');
-            exit(0);
+        // Ensure that no post is saved twice. 
+        $post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
+        $result = mysqli_query($connection, $post_check_query);
+
+        if (mysqli_num_rows($result) > 0) { // if post exists
+            array_push($errors, "Ya existe un post con este título. Verifique que sea correcto.");
+        }
+        
+        // create post if there are no errors in the form
+        if (count($errors) == 0) {
+            if (!empty($stringFiles)) {
+                $query = "INSERT INTO posts (user_id, title, slug, image, body, published) VALUES(1, '$title', '$post_slug', '$stringFiles', '$body', $published)";
+                if (mysqli_query($connection, $query)) { // if post created successfully
+                    $inserted_post_id = mysqli_insert_id($connection);
+                    // create relationship between post and topic
+                    $sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
+                    mysqli_query($connection, $sql);
+
+                    $_SESSION['message'] = "La noticia fue creada correctamente.";
+                    header('location: postmanager.php');
+                    exit(0);
+                } else {
+                    array_push($errors, "Ocurrió un error al crear la noticia.");
+                }
+            } else {
+                array_push($errors, "No se pudo subir el archivo.");
+            }
         }
     }
 }
@@ -233,12 +251,12 @@ function deletePost($post_id)
 // publish/unpublish posts
 function togglePublishPost($post_id, $message)
 {
-	global $connection;
-	$sql = "UPDATE posts SET published=!published WHERE id=$post_id";
-	
-	if (mysqli_query($connection, $sql)) {
-		$_SESSION['message'] = $message;
-		header("location: postmanager.php");
-		exit(0);
-	}
+    global $connection;
+    $sql = "UPDATE posts SET published=!published WHERE id=$post_id";
+
+    if (mysqli_query($connection, $sql)) {
+        $_SESSION['message'] = $message;
+        header("location: postmanager.php");
+        exit(0);
+    }
 }

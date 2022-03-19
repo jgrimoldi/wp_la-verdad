@@ -5,29 +5,19 @@
     // GET post by slug
     if (isset($_GET['post-slug'])) {
         $post = getPost($_GET['post-slug']);
+        $imgsPost = explode(",", $post['image']);
     }
     $topics = getPostTopic($post['id']);
+    
+    include(ROOT_PATH . '/includes/carousel_style.php');
+
     ?>
-    <style>
-        .item-1 {
-            z-index: 2;
-            opacity: 1;
-            background: url(<?php echo BASE_URL . 'static/img/uploads/' . $post['image']; ?>);
-            background-size: cover;
-        }
-
-        .item-2 {
-            background: url(<?php echo BASE_URL . 'static/img/uploads/' . $post['image']; ?>);
-            background-size: cover;
-        }
-
-        .item-3 {
-            background: url(<?php echo BASE_URL . 'static/img/uploads/' . $post['image']; ?>);
-            background-size: cover;
-        }
-    </style>
     <!-- ============== title ============== -->
-    <title>La Verdad | <?php if (isset($post['title'])) {echo $post['title'];}else{ echo 'No se encontro la noticia'; } ?> </title>
+    <title>La Verdad | <?php if (isset($post['title'])) {
+                            echo $post['title'];
+                        } else {
+                            echo 'No se encontro la noticia';
+                        } ?> </title>
     </head>
 
     <body>
@@ -47,8 +37,9 @@
                             <h2 class="post__related-title">Últimas Noticias</h2>
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
+                                    <?php $imgs = explode(",", $post['image']) ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['image'] ?>">
+                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $imgs[0] ?>" alt="<?php echo $imgs[0] ?>">
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
@@ -68,7 +59,7 @@
                     <section class="container-fluid post">
                         <article class="d-flex post__info">
                             <strong class="post__info-budget"><?php echo $post['topic']['name'] ?></strong>
-                            <strong class="post__info-created"><?php echo $post['created_at'] ?></strong>
+                            <strong class="post__info-created"><?php echo date('D d/m/Y', strtotime($post['created_at'])) ?></strong>
                         </article>
                         <div class="post__background">
                             <h1 class="post__title"><?php echo $post['title']; ?></h1>
@@ -99,8 +90,9 @@
                             <h2 class="post__related-title">Últimas Noticias</h2>
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
+                                    <?php $imgs = explode(",", $last['image']) ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['image'] ?>">
+                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $imgs[0] ?>" alt="<?php echo $imgs[0] ?>">
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>

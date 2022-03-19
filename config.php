@@ -9,9 +9,9 @@ if(!$connection){
 }
 
 // Set locale in Spanish
-setlocale(LC_ALL,"es_ES");
+setlocale(LC_ALL, array("es_RA.UTF-8", "es_ES"));
 // Set timezone: Argentina
-date_default_timezone_set('America/Argentina/Rio_Gallegos');
+date_default_timezone_set('America/Argentina/Mendoza');
 // Physical address where config resides
 define('ROOT_PATH', realpath(dirname(__FILE__)));
 // Points to the root of the website
