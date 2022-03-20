@@ -45,6 +45,19 @@ if (isset($_GET['publish']) || isset($_GET['unpublish'])) {
     togglePublishPost($post_id, $message);
 }
 
+// if user clicks the pinned post button
+if (isset($_GET['pin']) || isset($_GET['unpin'])) {
+    $message = "";
+    if (isset($_GET['pin'])) {
+        $message = "La noticia ha sido fijada en el Banner.";
+        $post_id = $_GET['pin'];
+    } else if (isset($_GET['unpublish'])) {
+        $message = "La noticia ya no se vera fijada en el portal.";
+        $post_id = $_GET['unpin'];
+    }
+    togglePinnedPost($post_id, $message);
+}
+
 /* - - - - - - - - - - 
 -  Post functions
 - - - - - - - - - - -*/
@@ -142,7 +155,7 @@ function createPost($request_values)
         if (mysqli_num_rows($result) > 0) { // if post exists
             array_push($errors, "Ya existe un post con este título. Verifique que sea correcto.");
         }
-        
+
         // create post if there are no errors in the form
         if (count($errors) == 0) {
             if (!empty($stringFiles)) {
@@ -253,6 +266,30 @@ function togglePublishPost($post_id, $message)
 {
     global $connection;
     $sql = "UPDATE posts SET published=!published WHERE id=$post_id";
+
+    if (mysqli_query($connection, $sql)) {
+        $_SESSION['message'] = $message;
+        header("location: postmanager.php");
+        exit(0);
+    }
+}
+
+// pin/unpin posts
+function togglePinnedPost($post_id, $message)
+{
+    global $connection;
+
+    $sql_select = "SELECT * FROM posts WHERE pinned = true LIMIT 1";
+    $query_select = mysqli_query($connection, $sql_select);
+
+    if (mysqli_num_rows($query_select) > 0) {
+        $pinned = mysqli_fetch_assoc($query_select);
+        $pinned_id = $pinned['id'];
+        $sql_update = "UPDATE posts SET pinned = 0 WHERE id= $pinned_id";
+        mysqli_query($connection, $sql_update);
+    }
+
+    $sql = "UPDATE posts SET pinned=!pinned WHERE id=$post_id";
 
     if (mysqli_query($connection, $sql)) {
         $_SESSION['message'] = $message;

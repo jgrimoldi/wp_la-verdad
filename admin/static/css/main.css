@@ -533,6 +533,13 @@ input[type="file"] {
   text-align: center;
 }
 
+.nowrap-title{
+  width: min-content ;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* ---- post admin ----  */
 .post__table {
   width: 100%;

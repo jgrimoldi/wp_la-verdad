@@ -6,7 +6,7 @@
 function getPublishedPosts()
 {
     global $connection;
-    $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC";
+    $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
