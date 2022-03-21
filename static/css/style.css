@@ -75,19 +75,19 @@
   aspect-ratio: inherit;
 }
 
-.columns{
+.columns {
   flex-flow: row nowrap;
   justify-content: space-evenly;
   /* align-items: stretch;
   align-content: stretch; */
 }
 
-.column{
+.column {
   flex: 1 0 auto;
   padding: 0 1rem;
 }
 
-.articles{
+.articles {
   flex-basis: 80%;
   flex-flow: row wrap;
   justify-content: center;
@@ -95,48 +95,48 @@
   align-content: stretch;
 }
 
-.sponsors{
+.sponsors {
   flex-basis: 20%;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .articles__box,
-.sponsors__box{
+.sponsors__box {
   width: 100%;
   margin: 0 0 1rem;
 }
 
-.articles__box{
+.articles__box {
   width: 33%;
   flex-grow: 1;
   flex-shrink: 1;
-  padding: .5rem .3rem .5rem 0;
+  padding: 0.5rem 0.3rem 0.5rem 0;
 }
 
-.articles__box:first-child{
+.articles__box:first-child {
   width: 100%;
   flex-grow: 3;
   flex-shrink: 0;
   padding-top: 0;
 }
 
-.articles__box .related{
+.articles__box .related {
   width: auto;
   max-width: 100%;
   height: 100%;
   padding: 0;
 }
 
-.articles__box .related__title{
+.articles__box .related__title {
   font-size: 2.6rem;
 }
 
-.articles__box .related__resume{
+.articles__box .related__resume {
   width: 100%;
 }
 
-.articles__box .related__resume-info{
+.articles__box .related__resume-info {
   width: 95%;
   height: var(--line-height-body);
   font-size: 1.6rem;
@@ -145,13 +145,13 @@
   white-space: nowrap;
 }
 
-.related__budgets{
+.related__budgets {
   position: absolute;
   top: 2rem;
   left: 1rem;
 }
 
-.related__budgets-budget{
+.related__budgets-budget {
   background: var(--background-hex);
   padding: 1rem 2rem;
   border-radius: 2rem;
@@ -159,22 +159,23 @@
   font-size: 1.6rem;
   color: var(--font-color-s);
   text-transform: uppercase;
-  box-shadow: rgb(50, 50, 93, 0.25) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.3) -3px -3px 6px 1px inset;
+  box-shadow: rgb(50, 50, 93, 0.25) 3px 3px 6px 0px inset,
+    rgba(0, 0, 0, 0.3) -3px -3px 6px 1px inset;
 }
 
-.sponsors__box{
+.sponsors__box {
   position: relative;
   width: 100%;
   height: auto;
 }
 
-.sponsors__box::after{
-  content: '';
+.sponsors__box::after {
+  content: "";
   display: block;
   padding-bottom: 100%;
 }
 
-.sponsors__box-img{
+.sponsors__box-img {
   position: absolute;
   max-width: 100%;
   height: 100%;
@@ -182,11 +183,24 @@
   object-position: center;
 }
 
-
 /* ========== SEARCHES ========== */
 
 /* ========== JOBS ========== */
 
+.jobs{
+  width: 50% !important;
+}
+
+.jobs:first-child {
+  flex-grow: 1;
+  padding-top: .5rem;
+}
+
+.job {
+  width: 100%;
+  height: 400px;
+  border: 1px solid black;
+}
 /* ========== SINGLE_POST ========== */
 
 .post {
@@ -318,7 +332,7 @@
   clear: both;
 }
 
-.fb-share-button{
+.fb-share-button {
   position: absolute !important;
   right: 1rem;
   bottom: 1rem;
@@ -380,7 +394,7 @@
 
 /* ========== FILTERED_POSTS ========== */
 
-.filtered{
+.filtered {
   width: 90%;
   margin: 0 auto;
 
@@ -390,22 +404,22 @@
   align-content: stretch;
 }
 
-.filtered__title{
+.filtered__title {
   padding: 2rem;
   color: var(--font-color-s);
   text-align: center;
 }
 
-.filtered__title-topic{
-  letter-spacing: .2rem;
+.filtered__title-topic {
+  letter-spacing: 0.2rem;
   text-transform: uppercase;
 }
 
-.filtered__item{
-  padding: .5rem;
+.filtered__item {
+  padding: 0.5rem;
   flex: 1 0 33%;
 }
 
-.filtered__item .related{
-  width: auto;;
+.filtered__item .related {
+  width: auto;
 }

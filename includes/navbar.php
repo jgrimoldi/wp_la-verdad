@@ -13,7 +13,7 @@
     <div class="container-fluid navbar__container d-flex">
         <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php' ?>">Noticias</a>
         <a class="navbar__container-link" href="<?php echo BASE_URL . 'searches.php' ?>">Búsquedas</a>
-        <a class="navbar__container-link" href="<?php echo BASE_URL . 'jobs.php' ?>">Empleos</a>
+        <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php?jobs=Empleos' ?>">Empleos</a>
     </div>
 </nav>
 

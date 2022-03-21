@@ -21,6 +21,28 @@ function getPublishedPosts()
 }
 
 /***************************
+ * Returns authorized jobs *
+ ****************************/
+function getPublishedJobs()
+{
+    global $connection;
+    $sql_posts = "SELECT * FROM posts ps 
+        WHERE ps.id = (SELECT t.id FROM topics t WHERE t.name= 'Empleos') 
+        ORDER BY created_at DESC, pinned ASC;";
+    $query_posts = mysqli_query($connection, $sql_posts);
+
+    $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
+
+    $final_posts = array();
+    foreach ($posts as $post) {
+        $post['topic'] = getPostTopic($post['id']);
+        array_push($final_posts, $post);
+    }
+
+    return $final_posts;
+}
+
+/***************************
  * Returns the topic of the *
  * post according to the id *
  ****************************/
@@ -145,9 +167,10 @@ function getLastPosts($post_id, $records)
  * Add View           * 
  ****************************/
 
- function addView($post_id){
-     global $connection;
+function addView($post_id)
+{
+    global $connection;
 
     $query = "UPDATE `posts` SET `views`= views + 1 WHERE `id` = " . $post_id;
     mysqli_query($connection, $query);
- }
+}
