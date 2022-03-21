@@ -216,6 +216,7 @@
 }
 
 .post__background {
+  position: relative;
   background: var(--background-navbar);
   min-width: 100%;
   padding: 1rem;
@@ -308,12 +309,19 @@
 
 .post__body {
   padding: 2rem;
+  /* margin-bottom: 2rem; */
   font-size: 2rem;
   line-height: 3.2rem;
   text-align: justify;
   text-justify: inter-word;
   color: #555;
   clear: both;
+}
+
+.fb-share-button{
+  position: absolute !important;
+  right: 1rem;
+  bottom: 1rem;
 }
 
 .post__related-title {

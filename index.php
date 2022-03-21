@@ -43,9 +43,11 @@
                         <?php endforeach ?>
                     </article>
                     <article class="column sponsors d-flex">
+                        <?php foreach($sponsors as $sponsor):?>
                         <div class="sponsors__box">
-                            <img class="sponsors__box-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/banner.jpg' ?>" alt="<?php ?>">
+                            <img class="sponsors__box-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $sponsor['filename'] ?>" alt="<?php ?>">
                         </div>
+                        <?php endforeach ?>
                     </article>
                 </div>
             </section>
