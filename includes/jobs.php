@@ -1,31 +1,10 @@
-<?php $jobs = getPublishedJobs() ?>
+<?php $jobs = getPublishedPostBy("Empleos") ?>
 
-<?php foreach ($jobs as $job) : ?>
 
-<?php endforeach ?>
-<div class="jobs articles__box">
-    <div class="job">
-
-    </div>
-</div>
-<div class="jobs articles__box">
-    <div class="job">
-
-    </div>
-</div><div class="jobs articles__box">
-    <div class="job">
-
-    </div>
-</div><div class="jobs articles__box">
-    <div class="job">
-
-    </div>
-</div><div class="jobs articles__box">
-    <div class="job">
-
-    </div>
-</div><div class="jobs articles__box">
-    <div class="job">
-
-    </div>
+<div class="d-flex filtered">
+    <?php foreach ($jobs as $job) : ?>
+        <div class="filtered__item ">
+ 
+        </div>
+    <?php endforeach ?>
 </div>

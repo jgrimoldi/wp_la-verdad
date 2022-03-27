@@ -4,6 +4,7 @@ $post_id = 0;
 $isEditingPost = false;
 $published = 0;
 $title = "";
+$subtitle = "";
 $post_slug = "";
 $body = "";
 $featured_image = "";
@@ -101,8 +102,9 @@ function getPostAuthorById($user_id)
 
 function createPost($request_values)
 {
-    global $connection, $errors, $title, $featured_image, $topic_id, $body, $published;
+    global $connection, $errors, $title, $subtitle, $fileNames, $topic_id, $body, $published;
     $title = stringEscape($request_values['title']);
+    $subtitle = stringEscape($request_values['subtitle']);
     $body = htmlentities(stringEscape($request_values['body']));
 
     if (isset($request_values['topic_id'])) {
@@ -159,7 +161,7 @@ function createPost($request_values)
         // create post if there are no errors in the form
         if (count($errors) == 0) {
             if (!empty($stringFiles)) {
-                $query = "INSERT INTO posts (user_id, title, slug, image, body, published) VALUES(1, '$title', '$post_slug', '$stringFiles', '$body', $published)";
+                $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$stringFiles', '$body', $published)";
                 if (mysqli_query($connection, $query)) { // if post created successfully
                     $inserted_post_id = mysqli_insert_id($connection);
                     // create relationship between post and topic
@@ -187,21 +189,24 @@ function createPost($request_values)
 
 function editPost($role_id)
 {
-    global $connection, $title, $body, $published; // $post_slug, $isEditingPost, $post_id;
+    global $connection, $title, $subtitle, $featured_image, $body, $published; // $post_slug, $isEditingPost, $post_id;
     $sql = "SELECT * FROM posts WHERE id=$role_id LIMIT 1";
     $result = mysqli_query($connection, $sql);
     $post = mysqli_fetch_assoc($result);
     // set form values on the form to be updated
     $title = $post['title'];
-    $body = $post['body'];
+    $subtitle = $post['subtitle'];
+    $body = $post['body']; 
+    $featured_image = $post['image'];
     $published = $post['published'];
 }
 
 function updatePost($request_values)
 {
-    global $connection, $errors, $post_id, $title, $featured_image, $topic_id, $body, $published;
+    global $connection, $errors, $post_id, $title, $subtitle, $featured_image, $topic_id, $body, $published;
 
     $title = stringEscape($request_values['title']);
+    $subtitle = stringEscape($request_values['subtitle']);
     $body = stringEscape($request_values['body']);
     $post_id = stringEscape($request_values['post_id']);
 
@@ -230,7 +235,7 @@ function updatePost($request_values)
 
     // register topic if there are no errors in the form
     if (count($errors) == 0) {
-        $query = "UPDATE posts SET title='$title', slug='$post_slug', views=0, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
+        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', views=0, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
         // attach topic to post on post_topic table
         if (mysqli_query($connection, $query)) { // if post created successfully
             if (isset($topic_id)) {

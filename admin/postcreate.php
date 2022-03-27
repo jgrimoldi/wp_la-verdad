@@ -26,8 +26,9 @@
             <?php endif ?>
 
             <input class="form__inputs-input" type="text" name="title" id="title" placeholder="Título de la Noticia" value="<?php echo $title ?>">
+            <input class="form__inputs-input" type="text" name="subtitle" id="subtitle" placeholder="Subtítulo de la Noticia" value="<?php echo $subtitle ?>">
             <!-- ---- file input for img ---- -->
-            <input class="form__inputs-input input-file" type="file" name="userfiles[]" id="featured_image" multiple>
+            <input class="form__inputs-input input-file" type="file" name="userfiles[]" id="featured_image" value="<?php echo $image ?>" multiple>
             <select class="form__inputs-input" name="topic_id" id="topic_id">
               <?php if(empty($topics)): ?>
                 <option value="" selected disabled>LA CAJAS DE TEMAS ESTA VACÍA :C</option>
@@ -44,7 +45,7 @@
             <?php if ($_SESSION['user']['role'] == "Admin") : ?>
               <!-- display checkbox according to whether post has been published or not -->
               <?php if ($published == true) : ?>
-                <div class="checkbox d-flex"><label class="form__inputs-label" for="publish">Publicado</label><input class="form__inputs-checkbox" type="checkbox" name="publish" id="publish" value="1" checked="checked"></div>
+                <div class="checkbox d-flex"><label class="form__inputs-label" for="publish">Publicado</label><input class="form__inputs-checkbox" type="checkbox" name="publish" id="publish" value="0" checked="checked"></div>
               <?php else : ?>
                 <div class="checkbox d-flex"><label class="form__inputs-label" for="publish">Publicar</label><input class="form__inputs-checkbox" type="checkbox" name="publish" id="publish" value="1"></div>
               <?php endif ?>

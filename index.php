@@ -1,7 +1,6 @@
     <?php require_once('config.php'); ?>
     <?php require_once(ROOT_PATH . '/includes/public_functions.php') ?>
     <?php require_once(ROOT_PATH . '/includes/head_section.php'); ?>
-    <?php $posts = getPublishedPosts() ?>
     <?php $sponsors = getAllSponsors() ?>
 
     <!-- ============== title ============== -->
@@ -22,19 +21,32 @@
                 <?php endif ?>
                 <div class="columns d-flex">
                     <article class="column articles d-flex">
-                        <?php if(isset($_GET['jobs'])): ?>
-                            <?php include(ROOT_PATH . '/includes/jobs.php') ?>
-                        <?php else: ?>
+                        <?php if (isset($_GET['s'])) : ?>
+                            <?php switch ($_GET['s']):
+                                case 'Busquedas':
+                                    include(ROOT_PATH . '/includes/search.php');
+                                    break;
+                                case 'Empleos':
+                                    include(ROOT_PATH . '/includes/jobs.php');
+                                    break;
+                                case 'Noticias':
+                                default:
+                                    include(ROOT_PATH . '/includes/news.php');
+                                    break;
+                            endswitch ?>
+                        <?php else : ?> 
                             <?php include(ROOT_PATH . '/includes/news.php') ?>
                         <?php endif ?>
                     </article>
-                    <article class="column sponsors d-flex">
-                        <?php foreach($sponsors as $sponsor):?>
-                        <div class="sponsors__box">
-                            <img class="sponsors__box-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $sponsor['filename'] ?>" alt="<?php ?>">
-                        </div>
-                        <?php endforeach ?>
-                    </article>
+                    <?php if (count($sponsors) >= 2) : ?>
+                        <article class="column sponsors d-flex">
+                            <?php foreach ($sponsors as $sponsor) : ?>
+                                <div class="sponsors__box">
+                                    <img class="sponsors__box-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $sponsor['filename'] ?>" alt="<?php ?>">
+                                </div>
+                            <?php endforeach ?>
+                        </article>
+                    <?php endif ?>
                 </div>
             </section>
         </main>

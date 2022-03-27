@@ -9,7 +9,7 @@
             $imgsPost = explode(",", $post['image']);
             echo '<meta property="og:url" content="' . BASE_URL . 'single_post.php?post-slug=' . $post['slug'] . '">';
             echo '<meta property="og:title" content="' . $post['title'] . '">';
-            echo '<meta property="og:description" content="' . $post['body']  . '">';
+            echo '<meta property="og:description" content="' . $post['subtitle']  . '">';
             echo '<meta property="og:image" content="' . BASE_URL . 'static/img/uploads/' . $imgsPost[0] . '">';
             echo '<meta property="fb:app_id" content="">';
         }
@@ -70,6 +70,7 @@
                         </article>
                         <div class="post__background">
                             <h1 class="post__title"><?php echo $post['title']; ?></h1>
+                            <h2 class="post__subtitle"><?php echo $post['subtitle']; ?></h2>
                             <div class="post__imgs">
                                 <span id="item-1" class="item"></span>
                                 <span id="item-2" class="item"></span>

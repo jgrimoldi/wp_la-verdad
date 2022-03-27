@@ -1,3 +1,5 @@
+<?php $posts = getPublishedPosts() ?>
+
 <?php foreach ($posts as $post) : ?>
     <?php $imgs = explode(",", $post['image']) ?>
     <div class="articles__box">

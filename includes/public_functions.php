@@ -6,7 +6,8 @@
 function getPublishedPosts()
 {
     global $connection;
-    $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
+    // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
+    $sql_posts = "SELECT * FROM posts WHERE id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY created_at DESC, pinned ASC";
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
@@ -23,12 +24,11 @@ function getPublishedPosts()
 /***************************
  * Returns authorized jobs *
  ****************************/
-function getPublishedJobs()
+function getPublishedPostBy($topic)
 {
     global $connection;
-    $sql_posts = "SELECT * FROM posts ps 
-        WHERE ps.id = (SELECT t.id FROM topics t WHERE t.name= 'Empleos') 
-        ORDER BY created_at DESC, pinned ASC;";
+    $sql_posts = "SELECT * FROM posts WHERE id IN (SELECT `post_id` FROM post_topic WHERE topic_id = (SELECT id FROM topics WHERE name = '" . $topic . "')) ORDER BY created_at DESC, pinned ASC";
+
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
