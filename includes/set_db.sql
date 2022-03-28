@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2022 a las 23:46:22
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 28-03-2022 a las 06:06:41
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,11 +31,12 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
+  `subtitle` text DEFAULT NULL,
   `slug` varchar(255) NOT NULL,
   `views` int(11) NOT NULL DEFAULT 0,
   `image` varchar(255) NOT NULL,
   `body` text NOT NULL,
-  `published` tinyint(1) NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT 0,
   `pinned` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -73,9 +74,17 @@ CREATE TABLE `sponsors` (
 
 CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
-  `name` varchar(190) NOT NULL,
-  `slug` varchar(190) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `topics`
+--
+
+INSERT INTO `topics` (`id`, `name`, `slug`) VALUES
+(1, 'Empleos', 'empleos'),
+(2, 'Búsquedas', 'b-squedas');
 
 -- --------------------------------------------------------
 
@@ -99,6 +108,17 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `role`, `password`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'admin@laverdadrn.com.ar', 'Admin', '$2y$10$S1zCcMFPxH6XKMC/iAufXuCbeec6hWxr9bYStwyR3vIa8OwQwXG4O', '2022-03-03 19:22:46', '2022-03-03 19:22:46');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `visitors`
+--
+
+CREATE TABLE `visitors` (
+  `visitor_ip` varchar(255) NOT NULL,
+  `post_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -140,6 +160,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `visitors`
+--
+ALTER TABLE `visitors`
+  ADD UNIQUE KEY `post_id` (`post_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -147,25 +173,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `post_topic`
 --
 ALTER TABLE `post_topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `sponsors`
 --
 ALTER TABLE `sponsors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

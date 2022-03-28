@@ -115,6 +115,10 @@ function createPost($request_values)
         $published = stringEscape($request_values['publish']);
     }
 
+    if(!empty($request_values['phone']) || !empty($request_values['email'])){
+        $body = $body . htmlentities(stringEscape("<i class='job__icon fas fa-phone'></i>" . $request_values['phone'] . "<br><i class='job__icon fas fa-envelope'></i>" . $request_values['email']));
+    }
+
     // create slug: if title is "The Storm Is Over", return "the-storm-is-over" as slug
     $post_slug = makeSlug($title);
     // validate form
@@ -167,7 +171,7 @@ function createPost($request_values)
                 header('location: postmanager.php');
                 exit(0);
             } else {
-                array_push($errors, "Ocurrió un error al crear la noticia.");
+                array_push($errors, "Ocurrió un error al crear la noticia." . $query);
             }
         } else {
             array_push($errors, "No se pudo subir el archivo.");
