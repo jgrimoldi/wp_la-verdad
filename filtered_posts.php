@@ -23,11 +23,9 @@
                     <?php echo '<h1 class="filtered__title" > Artículos en <span class="filtered__title-topic">' . getTopicNameById($topic_id) . '</span></h1>' ?>
                     <div class="d-flex filtered">
                         <?php foreach ($posts as $post) : ?>
-                            <?php $imgs = explode(",", $post['image']) ?>
-
                             <div class="filtered__item">
                                 <div class="related">
-                                    <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $imgs[0] ?>" alt="<?php echo $imgs[0] ?>">
+                                    <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
                                     <div class="related-shadow">
                                         <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug'] ?>">
                                             <h3 class="related__title"><?php echo $post['title'] ?></h3>

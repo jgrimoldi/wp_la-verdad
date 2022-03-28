@@ -129,54 +129,48 @@ function createPost($request_values)
     }
     // Get image name
     $folder = ROOT_PATH . "/static/img/uploads/";
-    $allowedTypes = array('jpg', 'png', 'jpeg', 'webp');
+    $allowedTypes = array('jpg', 'png', 'jpeg');
+    $fileName = $_FILES['featured_image']['name'];
+    if (!empty($fileName)) {
+        $fileName = basename($_FILES['featured_image']['name']);
+        $target = $folder . $fileName;
 
-    $fileNames = array_filter($_FILES['userfiles']['name']);
-    if (!empty($fileNames)) {
-
-        $stringFiles = implode(",", $fileNames);
-
-        foreach ($fileNames as $key => $files) {
-            $fileName = basename($_FILES['userfiles']['name'][$key]);
-            $target = $folder . $fileName;
-
-            $fileType = pathinfo($target, PATHINFO_EXTENSION);
-            if (in_array($fileType, $allowedTypes)) {
-                if (!move_uploaded_file($_FILES['userfiles']['tmp_name'][$key], $target)) {
-                    array_push($errors, "No se pudo subir el archivo.");
-                }
-            } else {
-                array_push($errors, "No se pudo subir. El archivo debe tener extensión jpg/png/jpeg/webp");
-            }
-        }
-
-        // Ensure that no post is saved twice. 
-        $post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
-        $result = mysqli_query($connection, $post_check_query);
-
-        if (mysqli_num_rows($result) > 0) { // if post exists
-            array_push($errors, "Ya existe un post con este título. Verifique que sea correcto.");
-        }
-
-        // create post if there are no errors in the form
-        if (count($errors) == 0) {
-            if (!empty($stringFiles)) {
-                $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$stringFiles', '$body', $published)";
-                if (mysqli_query($connection, $query)) { // if post created successfully
-                    $inserted_post_id = mysqli_insert_id($connection);
-                    // create relationship between post and topic
-                    $sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
-                    mysqli_query($connection, $sql);
-
-                    $_SESSION['message'] = "La noticia fue creada correctamente.";
-                    header('location: postmanager.php');
-                    exit(0);
-                } else {
-                    array_push($errors, "Ocurrió un error al crear la noticia.");
-                }
-            } else {
+        $fileType = pathinfo($target, PATHINFO_EXTENSION);
+        if (in_array($fileType, $allowedTypes)) {
+            if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                 array_push($errors, "No se pudo subir el archivo.");
             }
+        } else {
+            array_push($errors, "No se pudo subir. El archivo debe tener extensión jpg/png/jpeg");
+        }
+    }
+
+    // Ensure that no post is saved twice. 
+    $post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
+    $result = mysqli_query($connection, $post_check_query);
+
+    if (mysqli_num_rows($result) > 0) { // if post exists
+        array_push($errors, "Ya existe un post con este título. Verifique que sea correcto.");
+    }
+
+    // create post if there are no errors in the form
+    if (count($errors) == 0) {
+        if (!empty($fileName)) {
+            $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$fileName', '$body', $published)";
+            if (mysqli_query($connection, $query)) { // if post created successfully
+                $inserted_post_id = mysqli_insert_id($connection);
+                // create relationship between post and topic
+                $sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
+                mysqli_query($connection, $sql);
+
+                $_SESSION['message'] = "La noticia fue creada correctamente.";
+                header('location: postmanager.php');
+                exit(0);
+            } else {
+                array_push($errors, "Ocurrió un error al crear la noticia.");
+            }
+        } else {
+            array_push($errors, "No se pudo subir el archivo.");
         }
     }
 }
@@ -189,27 +183,27 @@ function createPost($request_values)
 
 function editPost($role_id)
 {
-    global $connection, $title, $subtitle, $featured_image, $body, $published; // $post_slug, $isEditingPost, $post_id;
+    global $connection, $title, $subtitle, $views, $post_slug, $body, $published, $isEditingPost, $post_id;
     $sql = "SELECT * FROM posts WHERE id=$role_id LIMIT 1";
     $result = mysqli_query($connection, $sql);
     $post = mysqli_fetch_assoc($result);
     // set form values on the form to be updated
     $title = $post['title'];
     $subtitle = $post['subtitle'];
-    $body = $post['body']; 
-    $featured_image = $post['image'];
+    $views = $post['views'];
+    $body = $post['body'];
     $published = $post['published'];
 }
 
 function updatePost($request_values)
 {
-    global $connection, $errors, $post_id, $title, $subtitle, $featured_image, $topic_id, $body, $published;
+    global $connection, $errors, $post_id, $title, $subtitle, $views, $featured_image, $topic_id, $body, $published;
 
     $title = stringEscape($request_values['title']);
-    $subtitle = stringEscape($request_values['subtitle']);
+    $subtitle = stringEscape($request_values['subtitle']); 
+    $views = $request_values['views'];
     $body = stringEscape($request_values['body']);
     $post_id = stringEscape($request_values['post_id']);
-
     if (isset($request_values['topic_id'])) {
         $topic_id = stringEscape($request_values['topic_id']);
     }
@@ -217,25 +211,25 @@ function updatePost($request_values)
     $post_slug = makeSlug($title);
 
     if (empty($title)) {
-        array_push($errors, "Vas a publicar una noticia sin título?");
+        array_push($errors, "La noticia no tiene título?");
     }
     if (empty($body)) {
-        array_push($errors, "Falta el cuerpo de la noticia.");
+        array_push($errors, "Se requiere un cuerpo en la noticia");
     }
     // if new featured image has been provided
-    if (isset($_POST['userfile'])) {
+    if (isset($_POST['featured_image'])) {
         // Get image name
-        $featured_image = $_FILES['userfile']['name'];
+        $featured_image = $_FILES['featured_image']['name'];
         // image file directory
         $target = ROOT_PATH . "/static/img/uploads/" . basename($featured_image);
-        if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $target)) {
-            array_push($errors, "Hubo un fallo al subir la imagen.");
+        if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+            array_push($errors, "Error al subir la imagen.");
         }
     }
 
     // register topic if there are no errors in the form
     if (count($errors) == 0) {
-        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', views=0, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
+        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', views=$views, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
         // attach topic to post on post_topic table
         if (mysqli_query($connection, $query)) { // if post created successfully
             if (isset($topic_id)) {
@@ -253,6 +247,10 @@ function updatePost($request_values)
         exit(0);
     }
 }
+
+
+
+
 
 // delete blog post
 function deletePost($post_id)

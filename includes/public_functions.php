@@ -163,14 +163,49 @@ function getLastPosts($post_id, $records)
     return $final_posts;
 }
 
+
+/***************************
+ * Returns if the visitor   *
+ * not seen the page    * 
+ ****************************/
+
+function is_unique_view($visitor_ip, $post_id)
+{
+    global $connection;
+
+    $query = "SELECT * FROM visitors WHERE visitor_ip='$visitor_ip' AND post_id='$post_id'";
+    $result = mysqli_query($connection, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 /***************************
  * Add View           * 
  ****************************/
 
-function addView($post_id)
+function addView($post_id, $visitor_ip)
 {
+
     global $connection;
 
-    $query = "UPDATE `posts` SET `views`= views + 1 WHERE `id` = " . $post_id;
-    mysqli_query($connection, $query);
+    if (is_unique_view($visitor_ip, $post_id) === true) {
+        // insert unique visitor record for checking whether the visit is unique or not in future.
+        $query = "INSERT INTO visitors (visitor_ip, post_id) VALUES ('$visitor_ip', '$post_id')";
+
+        if (mysqli_query($connection, $query)) {
+            // At this point unique visitor record is created successfully. Now update total_views of specific page.
+            $query = "UPDATE `posts` SET `views`= views + 1 WHERE `id` = " . $post_id;
+
+            if (!mysqli_query($connection, $query)) {
+                array_push($final_posts, mysqli_error($connection));
+            }
+        } else {
+            array_push($final_posts, mysqli_error($connection));
+        }
+    }
 }

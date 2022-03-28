@@ -6,17 +6,14 @@
     if (isset($_GET['post-slug'])) {
         $post = getPost($_GET['post-slug']);
         if (!empty($post)) {
-            $imgsPost = explode(",", $post['image']);
             echo '<meta property="og:url" content="' . BASE_URL . 'single_post.php?post-slug=' . $post['slug'] . '">';
             echo '<meta property="og:title" content="' . $post['title'] . '">';
             echo '<meta property="og:description" content="' . $post['subtitle']  . '">';
-            echo '<meta property="og:image" content="' . BASE_URL . 'static/img/uploads/' . $imgsPost[0] . '">';
+            echo '<meta property="og:image" content="' . BASE_URL . 'static/img/uploads/' . $post['image'] . '">';
             echo '<meta property="fb:app_id" content="">';
         }
     }
     // $topics = getPostTopic($post['id']);
-
-    include(ROOT_PATH . '/includes/carousel_style.php');
     ?>
 
     <!-- ============== title ============== -->
@@ -44,9 +41,8 @@
                             <h2 class="post__related-title">Últimas Noticias</h2>
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
-                                    <?php $imgs = explode(",", $post['image']) ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $imgs[0] ?>" alt="<?php echo $imgs[0] ?>">
+                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['image'] ?>">
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
@@ -62,7 +58,7 @@
                     </section>
                 <?php else : ?>
                     <?php $latests = getLastPosts($post['id'], 3) ?>
-                    <?php addView($post['id']) ?>
+                    <?php addView($post['id'], $_SERVER['REMOTE_ADDR']) ?>
                     <section class="container-fluid post">
                         <article class="d-flex post__info">
                             <strong class="post__info-budget"><?php echo $post['topic']['name'] ?></strong>
@@ -72,23 +68,7 @@
                             <h1 class="post__title"><?php echo $post['title']; ?></h1>
                             <h2 class="post__subtitle"><?php echo $post['subtitle']; ?></h2>
                             <div class="post__imgs">
-                                <span id="item-1" class="item"></span>
-                                <span id="item-2" class="item"></span>
-                                <span id="item-3" class="item"></span>
-                                <div class="carousel-item item-1">
-                                    <a href="#item-3" class="arrow-prev arrow"></a>
-                                    <a href="#item-2" class="arrow-next arrow"></a>
-                                </div>
-
-                                <div class="carousel-item item-2">
-                                    <a href="#item-1" class="arrow-prev arrow"></a>
-                                    <a href="#item-3" class="arrow-next arrow"></a>
-                                </div>
-
-                                <div class="carousel-item item-3">
-                                    <a href="#item-2" class="arrow-prev arrow"></a>
-                                    <a href="#item-1" class="arrow-next arrow"></a>
-                                </div>
+                                <img loading="lazy" class="post__imgs-img" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
                             </div>
                             <article class="post__body">
                                 <?php echo html_entity_decode($post['body']) ?>
@@ -99,9 +79,8 @@
                             <h2 class="post__related-title">Últimas Noticias</h2>
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
-                                    <?php $imgs = explode(",", $last['image']) ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $imgs[0] ?>" alt="<?php echo $imgs[0] ?>">
+                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['image'] ?>">
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>

@@ -266,6 +266,13 @@
   /* border   : .2rem solid black; */
 }
 
+.post__imgs-img{
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
 .carousel-item {
   position  : absolute;
   top       : 0;
