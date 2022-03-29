@@ -134,8 +134,10 @@
 }
 
 .articles__box:first-child .related__budgets {
+  top: inherit;
   left: inherit;
   right: 1rem;
+  bottom: 2rem;
   z-index: 1000;
 }
 
@@ -306,6 +308,7 @@
   padding    : 2rem 2rem;
   color      : #555;
   font-weight: 300;
+  text-align: center;
 }
 
 /* BORRAR? */
