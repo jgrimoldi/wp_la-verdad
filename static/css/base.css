@@ -95,6 +95,7 @@ img {
 }
 
 .header__container {
+  position: relative;
   margin: 0 auto;
   flex: 1;
   flex-wrap: nowrap;

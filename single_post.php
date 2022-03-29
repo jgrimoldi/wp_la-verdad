@@ -1,6 +1,7 @@
     <?php include('config.php'); ?>
     <?php include(ROOT_PATH . '/includes/public_functions.php'); ?>
     <?php include(ROOT_PATH . '/includes/head_section.php'); ?>
+    <?php $visitor_ip = $_SERVER['REMOTE_ADDR']; ?>
     <?php
     // GET post by slug
     if (isset($_GET['post-slug'])) {
@@ -58,7 +59,7 @@
                     </section>
                 <?php else : ?>
                     <?php $latests = getLastPosts($post['id'], 3) ?>
-                    <?php addView($post['id'], $_SERVER['REMOTE_ADDR']) ?>
+                    <?php addView($post['id'], $visitor_ip) ?>
                     <section class="container-fluid post">
                         <article class="d-flex post__info">
                             <strong class="post__info-budget"><?php echo $post['topic']['name'] ?></strong>

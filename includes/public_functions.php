@@ -173,13 +173,13 @@ function is_unique_view($visitor_ip, $post_id)
 {
     global $connection;
 
-    $query = "SELECT * FROM visitors WHERE visitor_ip='$visitor_ip' AND post_id='$post_id'";
+    $query = "SELECT * FROM visitors WHERE post_id = " . $post_id .  "AND visitor_ip =" . $visitor_ip;
     $result = mysqli_query($connection, $query);
 
-    if (mysqli_num_rows($result) > 0) {
-        return false;
-    } else {
+    if (mysqli_num_rows($result) == 0) {
         return true;
+    } else {
+        return false;
     }
 }
 
@@ -193,15 +193,14 @@ function addView($post_id, $visitor_ip)
 
     global $connection;
 
-    if (is_unique_view($visitor_ip, $post_id) === true) {
+    if (is_unique_view($visitor_ip, $post_id) == true) {
         // insert unique visitor record for checking whether the visit is unique or not in future.
-        $query = "INSERT INTO visitors (visitor_ip, post_id) VALUES ('$visitor_ip', '$post_id')";
+        $query_insert = "INSERT INTO visitors (visitor_ip, post_id) VALUES ('$visitor_ip', '$post_id')";
 
-        if (mysqli_query($connection, $query)) {
+        if (mysqli_query($connection, $query_insert)) {
             // At this point unique visitor record is created successfully. Now update total_views of specific page.
-            $query = "UPDATE `posts` SET `views`= views + 1 WHERE `id` = " . $post_id;
-
-            if (!mysqli_query($connection, $query)) {
+            $query_update = "UPDATE `posts` SET `views`= `views` + 1 WHERE `id` = " . $post_id;
+            if (!mysqli_query($connection, $query_update)) {
                 array_push($errors, mysqli_error($connection));
             }
         } else {
