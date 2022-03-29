@@ -63,6 +63,9 @@
   .jobs {
     flex: 1 0 100% !important;
   }
+  .footer__navbar-link {
+    padding: 1rem 1rem;
+  }
 }
 
 /* 641px */
@@ -171,7 +174,6 @@
 
   .footer__navbar-link {
     flex   : 1 1 auto;
-    padding: 1rem 0;
   }
 
   .errorpage__title {

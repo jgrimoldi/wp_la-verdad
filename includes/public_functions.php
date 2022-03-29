@@ -1,13 +1,24 @@
 <?php
 
+
+function totalPublishedPosts(){
+    global $connection;
+    // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas'))";
+    $query_posts = mysqli_query($connection, $sql_posts);
+    $total_posts = mysqli_num_rows($query_posts);
+    
+    return $total_posts;
+}
+
 /***************************
  * Returns authorized posts *
  ****************************/
-function getPublishedPosts()
+function getPublishedPosts($limit, $offset)
 {
     global $connection;
     // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
-    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC";
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC LIMIT " .$offset."," . $limit;
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
@@ -195,7 +206,7 @@ function addView($post_id, $visitor_ip)
 
     if (is_unique_view($visitor_ip, $post_id) == true) {
         // insert unique visitor record for checking whether the visit is unique or not in future.
-        $query_insert = "INSERT INTO visitors (visitor_ip, post_id) VALUES ('$visitor_ip', '$post_id')";
+        $query_insert = "INSERT INTO visitors (visitor_ip, post_id) VALUES (" .$visitor_ip ." , " .$post_id . ")";
 
         if (mysqli_query($connection, $query_insert)) {
             // At this point unique visitor record is created successfully. Now update total_views of specific page.

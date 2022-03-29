@@ -9,9 +9,9 @@
             <img class="footer-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/isologo.svg' ?>" alt="Imagen">
         </div>
         <div class="footer__social-networks">
-            <h3>Seguinos en Facebook!</h3>
+            <h3>Seguinos en nuestras redes!</h3>
             <div class="social-networks d-flex">
-                <!-- <a href="<?php // echo INSTAGRAM_URL ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a> -->
+                <a href="<?php echo INSTAGRAM_URL ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <!-- <a href="<?php // echo TWITTER_URL ?>" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a> -->
                 <a href="<?php echo FACEBOOK_URL ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
             </div>

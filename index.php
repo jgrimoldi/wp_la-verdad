@@ -21,8 +21,8 @@
                 <?php endif ?>
                 <div class="columns d-flex">
                     <article class="column articles d-flex">
-                        <?php if (isset($_GET['s'])) : ?>
-                            <?php switch ($_GET['s']):
+                        <?php if (isset($_GET['section'])) : ?>
+                            <?php switch ($_GET['section']):
                                 case 'Busquedas':
                                     include(ROOT_PATH . '/includes/search.php');
                                     break;
@@ -55,6 +55,7 @@
         <?php include(ROOT_PATH . '/includes/footer.php') ?>
         <!-- ============== scripts ============== -->
         <?php require_once(ROOT_PATH . '/includes/scripts.php') ?>
+        
     </body>
 
     </html>

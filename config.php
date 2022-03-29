@@ -19,4 +19,4 @@ define('BASE_URL', 'http://localhost/wp_la-verdad/');
 // Social networks
 define('FACEBOOK_URL', 'https://facebook.com/LaVerdad-109301787920924');
 define('TWITTER_URL', 'https://twitter.com/');
-define('INSTAGRAM_URL', 'https://instagram.com/');
+define('INSTAGRAM_URL', 'https://www.instagram.com/laverdad_rn/');
