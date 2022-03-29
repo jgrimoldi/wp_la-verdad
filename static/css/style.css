@@ -110,6 +110,7 @@
 
 .articles__box {
   width      : 33%;
+  max-height: 60rem;
   flex-grow  : 1;
   flex-shrink: 1;
   padding    : 0.5rem 0.3rem 0.5rem 0;
@@ -120,6 +121,22 @@
   flex-grow  : 3;
   flex-shrink: 0;
   padding-top: 0;
+}
+
+.articles__box:first-child .related-shadow {
+  background: linear-gradient(to bottom,
+      #030303,
+      30%,
+      rgba(3, 3, 3, 0.6) 80%,
+      transparent);
+  top: 0;
+  bottom:inherit;
+}
+
+.articles__box:first-child .related__budgets {
+  left: inherit;
+  right: 1rem;
+  z-index: 1000;
 }
 
 .articles__box .related {

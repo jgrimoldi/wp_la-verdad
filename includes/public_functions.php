@@ -7,7 +7,7 @@ function getPublishedPosts()
 {
     global $connection;
     // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
-    $sql_posts = "SELECT * FROM posts WHERE id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY created_at DESC, pinned ASC";
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC";
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
@@ -27,7 +27,7 @@ function getPublishedPosts()
 function getPublishedPostBy($topic)
 {
     global $connection;
-    $sql_posts = "SELECT * FROM posts WHERE id IN (SELECT `post_id` FROM post_topic WHERE topic_id = (SELECT id FROM topics WHERE name = '" . $topic . "')) ORDER BY created_at DESC, pinned ASC";
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id = (SELECT id FROM topics WHERE name = '" . $topic . "')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC";
 
     $query_posts = mysqli_query($connection, $sql_posts);
 
@@ -202,10 +202,10 @@ function addView($post_id, $visitor_ip)
             $query = "UPDATE `posts` SET `views`= views + 1 WHERE `id` = " . $post_id;
 
             if (!mysqli_query($connection, $query)) {
-                array_push($final_posts, mysqli_error($connection));
+                array_push($errors, mysqli_error($connection));
             }
         } else {
-            array_push($final_posts, mysqli_error($connection));
+            array_push($errors, mysqli_error($connection));
         }
     }
 }

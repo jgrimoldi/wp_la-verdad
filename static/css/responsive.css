@@ -1,5 +1,5 @@
 /* 1281px */
-@media (max-width: 80.063rem) {
+@media (max-width: 80.063em) {
   :root {
     --font-size-body  : 1.8rem;
     --font-size-social: 2.2rem;
@@ -15,10 +15,10 @@
 }
 
 /* 1025px */
-@media (max-width: 64.063rem) {}
+@media (max-width: 64.063em) {}
 
 /* 961px */
-@media (max-width: 60.063rem) {
+@media (max-width: 60.063em) {
   .errorpage__title {
     font-size: 9rem;
   }
@@ -59,14 +59,14 @@
 }
 
 /* 780px */
-@media(max-width:48.75rem) {
+@media(max-width:48.750em) {
   .jobs {
     flex: 1 0 100% !important;
   }
 }
 
 /* 641px */
-@media (max-width: 40.063rem) {
+@media (max-width: 40.063em) {
   :root {
     --font-size-body  : 1.6rem;
     --font-size-social: 2rem;
@@ -95,6 +95,11 @@
     margin-bottom: 0;
   }
 
+
+  .articles__box .related__title {
+    font-size: 2rem;
+  }
+
   .post__info-budget {
     white-space: nowrap;
   }
@@ -121,7 +126,7 @@
 }
 
 /* 481px */
-@media (max-width: 30.063rem) {
+@media (max-width: 30.063em) {
   .header {
     padding: 1rem 1rem;
   }
@@ -175,7 +180,7 @@
 }
 
 /* 320px */
-@media (max-width: 20rem) {
+@media (max-width: 20em) {
   .navbar {
     padding: 1rem 1rem;
   }

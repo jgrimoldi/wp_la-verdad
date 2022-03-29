@@ -74,8 +74,8 @@ CREATE TABLE `sponsors` (
 
 CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL
+  `name` varchar(190) NOT NULL,
+  `slug` varchar(190) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

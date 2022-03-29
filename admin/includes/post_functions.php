@@ -102,7 +102,7 @@ function getPostAuthorById($user_id)
 
 function createPost($request_values)
 {
-    global $connection, $errors, $title, $subtitle, $fileNames, $topic_id, $body, $published;
+    global $connection, $errors, $title, $subtitle, $fileName, $topic_id, $body, $published;
     $title = stringEscape($request_values['title']);
     $subtitle = stringEscape($request_values['subtitle']);
     $body = htmlentities(stringEscape($request_values['body']));
@@ -115,7 +115,7 @@ function createPost($request_values)
         $published = stringEscape($request_values['publish']);
     }
 
-    if(!empty($request_values['phone']) || !empty($request_values['email'])){
+    if (!empty($request_values['phone']) || !empty($request_values['email'])) {
         $body = $body . htmlentities(stringEscape("<i class='job__icon fas fa-phone'></i>" . $request_values['phone'] . "<br><i class='job__icon fas fa-envelope'></i>" . $request_values['email']));
     }
 
@@ -131,9 +131,10 @@ function createPost($request_values)
     if (empty($topic_id)) {
         array_push($errors, "Elija un Tema para la noticia.");
     }
+
     // Get image name
     $folder = ROOT_PATH . "/static/img/uploads/";
-    $allowedTypes = array('jpg', 'png', 'jpeg');
+    $allowedTypes = array('jpg', 'png', 'jpeg', 'gif', 'mp4','mkv');
     $fileName = $_FILES['featured_image']['name'];
     if (!empty($fileName)) {
         $fileName = basename($_FILES['featured_image']['name']);
@@ -141,7 +142,13 @@ function createPost($request_values)
 
         $fileType = pathinfo($target, PATHINFO_EXTENSION);
         if (in_array($fileType, $allowedTypes)) {
-            if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+            if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+                $basename = pathinfo($target);
+                $destination = $folder . $basename['filename'] . '.webp';
+                convertImageToWebP($target,  $destination, 80);
+                $fileName = $basename['filename'] . '.webp';
+                unlink($target);
+            } else {
                 array_push($errors, "No se pudo subir el archivo.");
             }
         } else {
@@ -187,16 +194,16 @@ function createPost($request_values)
 
 function editPost($role_id)
 {
-    global $connection, $title, $subtitle, $views, $post_slug, $body, $published, $isEditingPost, $post_id;
+    global $connection, $title, $subtitle, $views, $post_slug, $body, $published, $featured_image, $isEditingPost, $post_id;
     $sql = "SELECT * FROM posts WHERE id=$role_id LIMIT 1";
     $result = mysqli_query($connection, $sql);
     $post = mysqli_fetch_assoc($result);
     // set form values on the form to be updated
     $title = $post['title'];
     $subtitle = $post['subtitle'];
-    $views = $post['views'];
     $body = $post['body'];
     $published = $post['published'];
+    $featured_image = $post['image'];
 }
 
 function updatePost($request_values)
@@ -204,10 +211,18 @@ function updatePost($request_values)
     global $connection, $errors, $post_id, $title, $subtitle, $views, $featured_image, $topic_id, $body, $published;
 
     $title = stringEscape($request_values['title']);
-    $subtitle = stringEscape($request_values['subtitle']); 
-    $views = $request_values['views'];
+    $subtitle = stringEscape($request_values['subtitle']);
     $body = stringEscape($request_values['body']);
     $post_id = stringEscape($request_values['post_id']);
+
+    if (isset($request_values['f_image'])) {
+        $featured_image = stringEscape($request_values['f_image']);
+    }
+
+    if (isset($request_values['publish'])) {
+        $published = stringEscape($request_values['publish']);
+    }
+
     if (isset($request_values['topic_id'])) {
         $topic_id = stringEscape($request_values['topic_id']);
     }
@@ -221,19 +236,35 @@ function updatePost($request_values)
         array_push($errors, "Se requiere un cuerpo en la noticia");
     }
     // if new featured image has been provided
-    if (isset($_POST['featured_image'])) {
+    if (!empty($_FILES['featured_image']['name'])) {
         // Get image name
+        $folder = ROOT_PATH . "/static/img/uploads/";
+        $allowedTypes = array('jpg', 'png', 'jpeg', 'gif');
         $featured_image = $_FILES['featured_image']['name'];
-        // image file directory
-        $target = ROOT_PATH . "/static/img/uploads/" . basename($featured_image);
-        if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
-            array_push($errors, "Error al subir la imagen.");
+        if (!empty($featured_image)) {
+            $featured_image = basename($_FILES['featured_image']['name']);
+            $target = $folder . $featured_image;
+
+            $fileType = pathinfo($target, PATHINFO_EXTENSION);
+            if (in_array($fileType, $allowedTypes)) {
+                if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+                    $basename = pathinfo($target);
+                    $destination = $folder . $basename['filename'] . '.webp';
+                    convertImageToWebP($target,  $destination, 80);
+                    $featured_image = $basename['filename'] . '.webp';
+                    unlink($target);
+                } else {
+                    array_push($errors, "No se pudo subir el archivo.");
+                }
+            } else {
+                array_push($errors, "No se pudo subir. El archivo debe tener extensión jpg/png/jpeg");
+            }
         }
     }
 
     // register topic if there are no errors in the form
     if (count($errors) == 0) {
-        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', views=$views, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
+        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
         // attach topic to post on post_topic table
         if (mysqli_query($connection, $query)) { // if post created successfully
             if (isset($topic_id)) {
@@ -245,26 +276,30 @@ function updatePost($request_values)
                 header('location: postmanager.php');
                 exit(0);
             }
+        } else {
+            array_push($errors, mysqli_error($connection));
         }
-        $_SESSION['message'] = "La noticia fue actualizada :)";
-        header('location: postmanager.php');
-        exit(0);
     }
 }
-
-
-
 
 
 // delete blog post
 function deletePost($post_id)
 {
     global $connection;
-    $sql = "DELETE FROM posts WHERE id=$post_id";
-    if (mysqli_query($connection, $sql)) {
-        $_SESSION['message'] = "Nos despedimos del post :(";
-        header("location: postmanager.php");
-        exit(0);
+
+    //Delete Image from post
+    $sql = "SELECT image FROM posts WHERE id=$post_id LIMIT 1";
+    $result = mysqli_query($connection, $sql);
+    $post = mysqli_fetch_assoc($result);
+
+    if (unlink(ROOT_PATH . '/static/img/uploads/' . $post['image'])) {
+        $sql_delete = "DELETE FROM posts WHERE id=$post_id";
+        if (mysqli_query($connection, $sql_delete)) {
+            $_SESSION['message'] = "Nos despedimos del post :(";
+            header("location: postmanager.php");
+            exit(0);
+        }
     }
 }
 
@@ -303,4 +338,28 @@ function togglePinnedPost($post_id, $message)
         header("location: postmanager.php");
         exit(0);
     }
+}
+
+
+function convertImageToWebP($source, $destination, $quality = 80)
+{
+    $extension = pathinfo($source, PATHINFO_EXTENSION);
+
+    switch ($extension) {
+        case 'jpg':
+        case 'jpeg':
+            $image = imagecreatefromjpeg($source);
+            break;
+        case 'gif':
+            $image = imagecreatefromgif($source);
+            break;
+        case 'png':
+            $image = imagecreatefrompng($source);
+            break;
+        // case 'mp4':
+        // case 'mkv':
+        //     return exec("ffmpeg -i" . $source . "-ar 22050 -ab 32 -f flv -s 320x240 video.webm");
+    }
+
+    return imagewebp($image, $destination, $quality);
 }
