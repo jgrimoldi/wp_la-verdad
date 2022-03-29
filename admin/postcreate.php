@@ -26,7 +26,7 @@
             <?php endif ?>
 
             <div class="checkbox d-flex">
-              <label class="form__inputs-label" for="publish">¿Es un empleo?</label>
+              <label class="form__inputs-label" for="job">¿Es un empleo?</label>
               <input class="form__inputs-checkbox" type="checkbox" name="job" id="job" value="0">
             </div>
 

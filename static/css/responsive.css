@@ -49,6 +49,10 @@
     width: 90%;
   }
 
+  .jobs{
+    max-width: 80%;
+  }
+
   .articles__box {
     width: 50%;
   }
@@ -61,6 +65,7 @@
 /* 780px */
 @media(max-width:48.750em) {
   .jobs {
+    max-width: 100%;
     flex: 1 0 100% !important;
   }
   .footer__navbar-link {
