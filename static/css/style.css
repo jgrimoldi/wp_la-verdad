@@ -65,7 +65,7 @@
 .sponsor__large {
   min-width: 100%;
   height   : 200px;
-  padding: 1rem;
+  padding  : 1rem;
 }
 
 .sponsor__large-img {
@@ -79,7 +79,7 @@
 .columns {
   flex-flow      : row nowrap;
   justify-content: space-evenly;
-  align-items : stretch;
+  align-items    : stretch;
   align-content  : stretch;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .articles {
-  position: relative;
+  position       : relative;
   flex-basis     : 80%;
   flex-flow      : row wrap;
   justify-content: center;
@@ -111,7 +111,8 @@
 
 .articles__box {
   width      : 33%;
-  max-height: 60rem;
+  /* Fija ancho noticias en principal */
+  max-height : 80rem;
   flex-grow  : 1;
   flex-shrink: 1;
   padding    : 0.5rem 0.3rem 0.5rem 0;
@@ -130,15 +131,15 @@
       30%,
       rgba(3, 3, 3, 0.6) 80%,
       transparent);
-  top: 0;
-  bottom:inherit;
+  top   : 0;
+  bottom: inherit;
 }
 
 .articles__box:first-child .related__budgets {
-  top: inherit;
-  left: inherit;
-  right: 1rem;
-  bottom: 2rem;
+  top    : inherit;
+  left   : inherit;
+  right  : 1rem;
+  bottom : 2rem;
   z-index: 1000;
 }
 
@@ -207,9 +208,9 @@
 /* ========== SEARCHES ========== */
 
 /* ========== JOBS ========== */
-.jobs{
+.jobs {
   max-width: 50%;
-  margin: 0 auto;
+  margin   : 0 auto;
 }
 
 .job {
@@ -217,11 +218,11 @@
   width        : 100%;
   height       : 100%;
   border-radius: 2rem;
-  color: var(--background-hex);
+  color        : var(--background-hex);
 }
 
 .job__ubication {
-  height: 60px;
+  height     : 60px;
   font-size  : 1.6rem;
   padding    : 1rem 2rem 2rem;
   line-height: normal;
@@ -244,27 +245,27 @@
 }
 
 .job__place {
-  height: max-content;
+  height    : max-content;
   font-size : 1.6rem;
   padding   : 2rem;
   text-align: center;
 }
 
-.job__image{
-  width: 150px;
-  height: 150px !important;
-  height: auto;
+.job__image {
+  width        : 150px;
+  height       : 150px !important;
+  height       : auto;
   border-radius: 50%;
-  border: .2rem solid black;
-  margin: 0 auto 2rem;
+  border       : .2rem solid black;
+  margin       : 0 auto 2rem;
 }
 
-.job__image-img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.job__image-img {
+  width        : 100%;
+  height       : 100%;
+  object-fit   : cover;
   border-radius: 50%;
-  aspect-ratio: inherit;
+  aspect-ratio : inherit;
 }
 
 .job__body {
@@ -272,12 +273,12 @@
   font-size: 1.6rem;
 }
 
-.job__body-title{
+.job__body-title {
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight   : bold;
 }
 
-.job__icon{
+.job__icon {
   margin-right: .5rem;
 }
 
@@ -331,7 +332,7 @@
   padding    : 2rem 2rem;
   color      : #555;
   font-weight: 300;
-  text-align: center;
+  text-align : center;
 }
 
 /* BORRAR? */
@@ -533,80 +534,80 @@
 
 /* ========== PAGINATION ========== */
 
-.pagination{
+.pagination {
   position: absolute;
-  bottom: -4.5rem;
-  width: 22rem;
-  height: 4.2rem;
+  bottom  : -4.5rem;
+  width   : 22rem;
+  height  : 4.2rem;
 }
 
-.pagination__buttons{
+.pagination__buttons {
   position: absolute;
-  top: .4rem;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
+  top     : .4rem;
+  left    : 0;
+  width   : 100%;
+  height  : 100%;
+  margin  : 0 auto;
+  display : flex;
   overflow: hidden;
 }
 
-.pagination__buttons-btn{
-  min-width: 3rem;
-  height: 3rem;
-  border: .1rem solid #fff;
+.pagination__buttons-btn {
+  min-width    : 3rem;
+  height       : 3rem;
+  border       : .1rem solid #fff;
   border-radius: 4px;
-  box-shadow: -2px -2px 4px 0px var(--background-hex) 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
-  margin: 0 4.5px;
-  color: var(--background-hex);
-  font-weight: 600;
-  text-align: center;
-  line-height: 3rem;
-  cursor: pointer;
-  background: #f2f2f2;
-  transition: all .4s ease;
+  box-shadow   : -2px -2px 4px 0px var(--background-hex) 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  margin       : 0 4.5px;
+  color        : var(--background-hex);
+  font-weight  : 600;
+  text-align   : center;
+  line-height  : 3rem;
+  cursor       : pointer;
+  background   : #f2f2f2;
+  transition   : all .4s ease;
 }
 
-.pagination__buttons-btn:hover{
+.pagination__buttons-btn:hover {
   background: var(--background-hex);
-  color: #f2f2f2;
+  color     : #f2f2f2;
 }
 
-.pagination__buttons-btn.active{
-  background: var(--background-hex);
-  color: #f2f2f2;
+.pagination__buttons-btn.active {
+  background    : var(--background-hex);
+  color         : #f2f2f2;
   pointer-events: none;
 }
 
-.pagination__scroll{
+.pagination__scroll {
   position: absolute;
 }
 
-.scroll-arrow{
+.scroll-arrow {
   position: absolute;
-  top: .4rem;
-  left: .6rem;
+  top     : .4rem;
+  left    : .6rem;
 
-  cursor: pointer;
-  min-width: 3rem;
-  height: 3rem;
-  border: .1rem solid #fff;
+  cursor       : pointer;
+  min-width    : 3rem;
+  height       : 3rem;
+  border       : .1rem solid #fff;
   border-radius: 4px;
-  box-shadow: -2px -2px 4px 0px var(--background-hex) 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
-  margin: 0 3px;
-  color: var(--background-hex);
-  font-weight: 600;
-  text-align: center;
-  line-height: 3rem;
-  background: #f2f2f2;
-  transition: all .4s ease;
+  box-shadow   : -2px -2px 4px 0px var(--background-hex) 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  margin       : 0 3px;
+  color        : var(--background-hex);
+  font-weight  : 600;
+  text-align   : center;
+  line-height  : 3rem;
+  background   : #f2f2f2;
+  transition   : all .4s ease;
 }
 
-.scroll-arrow[page=prev]{
-  left: -4rem;
+.scroll-arrow[page=prev] {
+  left          : -4rem;
   pointer-events: none;
 }
 
-.scroll-arrow[page=next]{
+.scroll-arrow[page=next] {
   left: 22.3rem;
 }

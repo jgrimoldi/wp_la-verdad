@@ -1,5 +1,5 @@
 var page = window.location.href.match(/[^/]+$/)[0];
-let base_url = `http://localhost/wp_la-verdad/`;
+let base_url = `http://laverdadrn.com.ar/`;
 let anchor = document.querySelector('.pagination__buttons-btn[href = "' + base_url + page + '"');
 
 if(anchor){
@@ -14,6 +14,8 @@ let initialNext = 0;
 let amount = 220;
 let width = document.getElementById("pb").clientLeft;
 let maxRange = Math.floor( ((buttons.length - 2)/ 6) * 200);
+
+console.log(maxRange)
 
 prev.onclick = () =>{
     initialPrev += amount;
@@ -33,19 +35,18 @@ prev.onclick = () =>{
 
 next.onclick = () =>{
     initialNext += amount;
-    prev.style.pointerEvents = 'inherit';
 
     if(initialNext != 0){
         initialPrev -= amount;
     }
     if(initialNext >= maxRange){
         next.style.pointerEvents = 'none';
+    }else{
+        prev.style.pointerEvents = 'inherit';
+        buttons.forEach(button => {
+            button.style.transform = "translateX(-"+ initialNext +"px)";
+        });
     }
-
-
-    buttons.forEach(button => {
-        button.style.transform = "translateX(-"+ initialNext +"px)";
-    });
 } 
 
 

@@ -9,7 +9,7 @@
     </div>
 </header>
 
-<nav class="container navbar">
+<nav class="container navbar active">
     <div class="container-fluid navbar__container d-flex">
         <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php?section=Noticias' ?>">Noticias</a>
         <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php?section=Busquedas' ?>">Búsquedas</a>
@@ -20,5 +20,5 @@
 
 <div class="container collapse">
     <div class="collapse__line"></div>
-    <i class="fas fa-chevron-down"></i>
+    <i class="fas fa-chevron-up"></i>
 </div>
