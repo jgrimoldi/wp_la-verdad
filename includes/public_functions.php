@@ -210,7 +210,7 @@ function addView($post_id, $visitor_ip)
 
         if (mysqli_query($connection, $query_insert)) {
             // At this point unique visitor record is created successfully. Now update total_views of specific page.
-            $query_update = "UPDATE posts SET views =+ 1 WHERE id = " . $post_id;
+            $query_update = "UPDATE posts SET views = views + 1 WHERE id = " . $post_id;
             if (!mysqli_query($connection, $query_update)) {
                 echo mysqli_error($connection);
             }
