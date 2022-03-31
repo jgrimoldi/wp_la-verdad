@@ -134,7 +134,7 @@ function createPost($request_values)
 
     // Get image name
     $folder = ROOT_PATH . "/static/img/uploads/";
-    $allowedTypes = array('jpg', 'png', 'jpeg', 'gif', 'mp4','mkv');
+    $allowedTypes = array('jpg', 'png', 'jpeg', 'gif', 'mp4', 'mkv');
     $fileName = $_FILES['featured_image']['name'];
     if (!empty($fileName)) {
         $fileName = basename($_FILES['featured_image']['name']);
@@ -341,9 +341,11 @@ function togglePinnedPost($post_id, $message)
 }
 
 
-function convertImageToWebP($source, $destination, $quality = 80)
+function convertImageToWebP($source, $destination, $quality = 100)
 {
+    $isAlpha = false;
     $extension = pathinfo($source, PATHINFO_EXTENSION);
+    $info = getimagesize($source);
 
     switch ($extension) {
         case 'jpg':
@@ -351,14 +353,22 @@ function convertImageToWebP($source, $destination, $quality = 80)
             $image = imagecreatefromjpeg($source);
             break;
         case 'gif':
+            $isAlpha = $info['mime'];
             $image = imagecreatefromgif($source);
             break;
         case 'png':
+            $isAlpha = $info['mime'];
             $image = imagecreatefrompng($source);
             break;
-        // case 'mp4':
-        // case 'mkv':
-        //     return exec("ffmpeg -i" . $source . "-ar 22050 -ab 32 -f flv -s 320x240 video.webm");
+            // case 'mp4':
+            // case 'mkv':
+            //     return exec("ffmpeg -i" . $source . "-ar 22050 -ab 32 -f flv -s 320x240 video.webm");
+    }
+
+    if ($isAlpha) {
+        imagepalettetotruecolor($image);
+        imagealphablending($image, true);
+        imagesavealpha($image, true);
     }
 
     return imagewebp($image, $destination, $quality);

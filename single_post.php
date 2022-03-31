@@ -37,7 +37,7 @@
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['image'] ?>">
+                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['title'] ?>">
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
@@ -66,7 +66,7 @@
                                 <?php if (isset($post['video'])) : ?>
                                     <iframe class="post__imgs-iframe" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F109301787920924%2Fvideos%2F302222865403254%2F&show_text=false&width=560&t=0" width="560" height="650" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
                                 <?php else : ?>
-                                    <img loading="lazy" class="post__imgs-img" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
+                                    <img loading="lazy" class="post__imgs-img" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['title'] ?>">
                                 <?php endif ?>
                             </div>
                             <article class="post__body">
@@ -79,7 +79,7 @@
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['image'] ?>">
+                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['title'] ?>">
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
@@ -110,7 +110,7 @@
                 if (d.getElementById(id)) return;
                 js = d.createElement(s);
                 js.id = id;
-                js.src = "https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v3.0";
+                js.src = "https://connect.facebook.net/es_LA/all.js#xfbml=1&version=v3.0";
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
