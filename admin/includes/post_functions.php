@@ -143,11 +143,11 @@ function createPost($request_values)
         $fileType = pathinfo($target, PATHINFO_EXTENSION);
         if (in_array($fileType, $allowedTypes)) {
             if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
-                // $basename = pathinfo($target);
-                // $destination = $folder . $basename['filename'] . '.webp';
-                // convertImageToWebP($target,  $destination, 80);
-                // $fileName = $basename['filename'] . '.webp';
-                // unlink($target);
+                $basename = pathinfo($target);
+                $destination = $folder . $basename['filename'] . '.webp';
+                convertImageToWebP($target,  $destination, 80);
+                $fileName = $basename['filename'] . '.webp';
+                unlink($target);
             } else {
                 array_push($errors, "No se pudo subir el archivo.");
             }
@@ -248,11 +248,11 @@ function updatePost($request_values)
             $fileType = pathinfo($target, PATHINFO_EXTENSION);
             if (in_array($fileType, $allowedTypes)) {
                 if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
-                    // $basename = pathinfo($target);
-                    // $destination = $folder . $basename['filename'] . '.webp';
-                    // convertImageToWebP($target,  $destination, 80);
-                    // $featured_image = $basename['filename'] . '.webp';
-                    // unlink($target);
+                    $basename = pathinfo($target);
+                    $destination = $folder . $basename['filename'] . '.webp';
+                    convertImageToWebP($target,  $destination, 80);
+                    $featured_image = $basename['filename'] . '.webp';
+                    unlink($target);
                 } else {
                     array_push($errors, "No se pudo subir el archivo.");
                 }

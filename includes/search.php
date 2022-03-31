@@ -2,7 +2,7 @@
 
 <div class="d-flex filtered">
     <?php foreach ($searchs as $search) : ?>
-        <div class="filtered__item">
+        <div class="filtered__item search">
             <div class="related">
                 <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $search['image'] ?>" alt="<?php echo $search['image'] ?>">
                 <div class="related-shadow">
