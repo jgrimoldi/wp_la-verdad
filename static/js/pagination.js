@@ -15,8 +15,6 @@ let amount = 220;
 let width = document.getElementById("pb").clientLeft;
 let maxRange = Math.floor( ((buttons.length - 2)/ 6) * 200);
 
-console.log(maxRange)
-
 prev.onclick = () =>{
     initialPrev += amount;
     next.style.pointerEvents = 'inherit';

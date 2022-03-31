@@ -1,20 +1,14 @@
     <?php include('config.php'); ?>
     <?php include(ROOT_PATH . '/includes/public_functions.php'); ?>
-    <?php include(ROOT_PATH . '/includes/head_section.php'); ?>
-    <?php $visitor_ip = $_SERVER['REMOTE_ADDR']; ?>
     <?php
     // GET post by slug
     if (isset($_GET['post-slug'])) {
         $post = getPost($_GET['post-slug']);
-        if (!empty($post)) {
-            echo '<meta property="og:url" content="' . BASE_URL . 'single_post.php?post-slug=' . $post['slug'] . '">';
-            echo '<meta property="og:title" content="' . $post['title'] . '">';
-            echo '<meta property="og:description" content="' . $post['subtitle']  . '">';
-            echo '<meta property="og:image" content="' . BASE_URL . 'static/img/uploads/' . $post['image'] . '">';
-            echo '<meta property="fb:app_id" content="">';
-        }
     }
-    // $topics = getPostTopic($post['id']);
+    ?>
+    <?php include(ROOT_PATH . '/includes/head_section.php'); ?>
+    <?php $visitor_ip = $_SERVER['REMOTE_ADDR']; ?>
+    <?php // $topics = getPostTopic($post['id']) 
     ?>
 
     <!-- ============== title ============== -->
@@ -69,12 +63,16 @@
                             <h1 class="post__title"><?php echo $post['title']; ?></h1>
                             <h2 class="post__subtitle"><?php echo $post['subtitle']; ?></h2>
                             <div class="post__imgs">
-                                <img loading="lazy" class="post__imgs-img" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
+                                <?php if (isset($post['video'])) : ?>
+                                    <iframe class="post__imgs-iframe" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F109301787920924%2Fvideos%2F302222865403254%2F&show_text=false&width=560&t=0" width="560" height="650" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+                                <?php else : ?>
+                                    <img loading="lazy" class="post__imgs-img" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
+                                <?php endif ?>
                             </div>
                             <article class="post__body">
                                 <?php echo html_entity_decode($post['body']) ?>
                             </article>
-                            <div class="fb-share-button" data-href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug']  ?>" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
+                            <div class="fb-share-button" data-href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug']  ?>" data-layout="button_count" data-size="small">Compartir</div>
                         </div>
                         <article class="post__related">
                             <h2 class="post__related-title">Últimas Noticias</h2>
@@ -106,7 +104,16 @@
 
         <!-- ============== fb ============== -->
         <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0" nonce="ogFDtwBZ"></script>
+        <script>
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v3.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
 
     </body>
 

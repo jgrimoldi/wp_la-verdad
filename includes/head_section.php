@@ -12,16 +12,26 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo BASE_URL ?>/">
     <meta property="og:site_name" content="La Verdad">
-    <meta property="og:url" content="<?php echo BASE_URL ?>">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="La Verdad">
-    <meta property="og:description" content="La Verdad noticias en Vivo, enterate las últimas novedades de la ciudad de Río Negro. Opiniones, Musica, Deportes y mucho más todo al alcance de un click. Toda la actualidad en un solo lugar.">
-    <meta property="og:image" content="<?php echo BASE_URL . 'static/img/favicon/favicon-192x192.png' ?>">
-    <meta property="og:image:secure_url" content="<?php echo BASE_URL . 'static/img/favicon/favicon-192x192.png' ?>">
-    <meta property="og:image:type" content="image/svg">
-    <meta property="og:image:width" content="192">
-    <meta property="og:image:height" content="192">
-    <meta property="og:image:alt" content="La Verdad Logotipo">
+    <?php if (isset($_GET['post-slug'])): ?>
+        <?php if (!empty($post)): ?>
+            <meta property="og:url" content="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug'] ?>">
+            <meta property="og:title" content="<?php echo $post['title'] ?>">
+            <meta property="og:description" content="<?php echo $post['subtitle']  ?>">
+            <meta property="og:image" content="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>">
+            <meta property="fb:app_id" content="">
+        <?php endif ?>
+    <?php else: ?>
+        <meta property="og:url" content="<?php echo BASE_URL ?>">
+        <meta property="og:title" content="La Verdad">
+        <meta property="og:description" content="La Verdad noticias en Vivo, enterate las últimas novedades de la ciudad de Río Negro. Opiniones, Musica, Deportes y mucho más todo al alcance de un click. Toda la actualidad en un solo lugar.">
+        <meta property="og:image" content="<?php echo BASE_URL . 'static/img/favicon/favicon-192x192.png' ?>">
+        <meta property="og:image:secure_url" content="<?php echo BASE_URL . 'static/img/favicon/favicon-192x192.png' ?>">
+        <meta property="og:image:type" content="image/svg">
+        <meta property="og:image:width" content="192">
+        <meta property="og:image:height" content="192">
+        <meta property="og:image:alt" content="La Verdad Logotipo">
+    <?php endif ?>
     <meta property="og:locale" content="es_AR">
     <meta property="og:locale:alternate" content="es_LA">
     

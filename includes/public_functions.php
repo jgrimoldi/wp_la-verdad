@@ -1,13 +1,14 @@
 <?php
 
 
-function totalPublishedPosts(){
+function totalPublishedPosts()
+{
     global $connection;
     // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
     $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas'))";
     $query_posts = mysqli_query($connection, $sql_posts);
     $total_posts = mysqli_num_rows($query_posts);
-    
+
     return $total_posts;
 }
 
@@ -18,7 +19,7 @@ function getPublishedPosts($limit, $offset)
 {
     global $connection;
     // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
-    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC LIMIT " .$offset."," . $limit;
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC LIMIT " . $offset . "," . $limit;
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
@@ -184,13 +185,13 @@ function is_unique_view($visitor_ip, $post_id)
 {
     global $connection;
 
-    $query = "SELECT * FROM visitors WHERE post_id = " . $post_id .  "AND visitor_ip =" . $visitor_ip;
+    $query = "SELECT * FROM visitors WHERE post_id = " . $post_id .  " AND visitor_ip ='" . $visitor_ip . "'";
     $result = mysqli_query($connection, $query);
 
-    if (mysqli_num_rows($result) == 0) {
-        return true;
-    } else {
+    if (mysqli_num_rows($result) > 0) {
         return false;
+    } else {
+        return true;
     }
 }
 
@@ -201,21 +202,20 @@ function is_unique_view($visitor_ip, $post_id)
 
 function addView($post_id, $visitor_ip)
 {
-
     global $connection;
 
-    if (is_unique_view($visitor_ip, $post_id) == true) {
+    if (is_unique_view($visitor_ip, $post_id)) {
         // insert unique visitor record for checking whether the visit is unique or not in future.
-        $query_insert = "INSERT INTO visitors (visitor_ip, post_id) VALUES (" .$visitor_ip ." , " .$post_id . ")";
+        $query_insert = "INSERT INTO visitors (visitor_ip, post_id) VALUES ('" . $visitor_ip . "' , " . $post_id . ")";
 
         if (mysqli_query($connection, $query_insert)) {
             // At this point unique visitor record is created successfully. Now update total_views of specific page.
-            $query_update = "UPDATE `posts` SET `views`= `views` + 1 WHERE `id` = " . $post_id;
+            $query_update = "UPDATE posts SET views =+ 1 WHERE id = " . $post_id;
             if (!mysqli_query($connection, $query_update)) {
-                array_push($errors, mysqli_error($connection));
+                echo mysqli_error($connection);
             }
         } else {
-            array_push($errors, mysqli_error($connection));
+            echo mysqli_error($connection);
         }
     }
 }
