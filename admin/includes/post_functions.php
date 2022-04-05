@@ -145,9 +145,8 @@ function createPost($request_values)
             if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                 $basename = pathinfo($target);
                 $destination = $folder . $basename['filename'] . '.webp';
-                convertImageToWebP($target,  $destination, 80);
-                $fileName = $basename['filename'] . '.webp';
-                unlink($target);
+                $featured_image = $basename['filename'] . '.webp';
+                convertImageToWebP($target,  $destination, 100);
             } else {
                 array_push($errors, "No se pudo subir el archivo.");
             }
@@ -167,7 +166,7 @@ function createPost($request_values)
     // create post if there are no errors in the form
     if (count($errors) == 0) {
         if (!empty($fileName)) {
-            $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$fileName', '$body', $published)";
+            $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$featured_image', '$body', $published)";
             if (mysqli_query($connection, $query)) { // if post created successfully
                 $inserted_post_id = mysqli_insert_id($connection);
                 // create relationship between post and topic
@@ -250,9 +249,8 @@ function updatePost($request_values)
                 if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                     $basename = pathinfo($target);
                     $destination = $folder . $basename['filename'] . '.webp';
-                    convertImageToWebP($target,  $destination, 80);
                     $featured_image = $basename['filename'] . '.webp';
-                    unlink($target);
+                    convertImageToWebP($target,  $destination, 100);
                 } else {
                     array_push($errors, "No se pudo subir el archivo.");
                 }
@@ -343,33 +341,9 @@ function togglePinnedPost($post_id, $message)
 
 function convertImageToWebP($source, $destination, $quality = 100)
 {
-    $isAlpha = false;
-    $extension = pathinfo($source, PATHINFO_EXTENSION);
-    $info = getimagesize($source);
+    $webp = ROOT_PATH . "/libwebp/bin/cwebp";
 
-    switch ($extension) {
-        case 'jpg':
-        case 'jpeg':
-            $image = imagecreatefromjpeg($source);
-            break;
-        case 'gif':
-            $isAlpha = $info['mime'];
-            $image = imagecreatefromgif($source);
-            break;
-        case 'png':
-            $isAlpha = $info['mime'];
-            $image = imagecreatefrompng($source);
-            break;
-            // case 'mp4':
-            // case 'mkv':
-            //     return exec("ffmpeg -i" . $source . "-ar 22050 -ab 32 -f flv -s 320x240 video.webm");
-    }
+    exec("{$webp} -q {$quality} {$source} -o {$destination}");
 
-    if ($isAlpha) {
-        imagepalettetotruecolor($image);
-        imagealphablending($image, true);
-        imagesavealpha($image, true);
-    }
-
-    return imagewebp($image, $destination, $quality);
+    unlink($source);
 }

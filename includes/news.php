@@ -1,30 +1,32 @@
 <?php
 if (isset($_GET['page'])) {
-    $offset = 10 * $_GET['page'];
-    $limit = $offset + 10;
+    $offset = (10 * $_GET['page']) + 1;
+    // $limit = 10;
 } else {
     $offset = 0;
-    $limit = 10;
+    // $limit = 10;
 }
 ?>
 
-<?php $posts = getPublishedPosts($limit, $offset) ?>
+<?php $posts = getPublishedPosts($limit = 10, $offset) ?>
 <?php $total_posts = max(ceil(totalPublishedPosts() / 10), 1) ?>
 
-<?php foreach ($posts as $post) : ?>
+<?php foreach ($posts as $key => $post) : ?>
     <div class="articles__box">
-        <div class="related">
-            <div class="related__budgets">
-                <a class="related__budgets-budget" href="<?php echo BASE_URL . 'filtered_posts.php?topic=' . $post['topic']['id'] ?>" rel="noopener noreferrer"><?php echo $post['topic']['name'] ?></a>
-            </div>
-            <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
-            <div class="related-shadow">
-                <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug'] ?>">
-                    <h3 class="related__title"><?php echo $post['title'] ?></h3>
-                </a>
-                <div class="related__resume">
-                    <div class="related__resume-info"><?php echo html_entity_decode($post['body']) ?></div>
+        <div class="principal d-flex">
+            <div class="principal__info">
+                <h3 class="principal__info-title">
+                    <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug'] ?>"><?php echo $post['title'] ?></a>
+                </h3>
+                <div class="principal__info-resume">
+                    <p><?php echo html_entity_decode($post['body']) ?></p>
                 </div>
+            </div>
+
+            <img class="principal__image-img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['image'] ?>">
+
+            <div class="principal__budgets">
+                <a class="principal__budgets-budget" href="<?php echo BASE_URL . 'filtered_posts.php?topic=' . $post['topic']['id'] ?>" rel="noopener noreferrer"><?php echo $post['topic']['name'] ?></a>
             </div>
         </div>
     </div>
