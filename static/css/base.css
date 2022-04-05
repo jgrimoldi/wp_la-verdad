@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'TT Interface';
+  src: url('../font/TTInterfaces-Bold.ttf');
+  font-weight: bold;
+}
+
 :root {
   --r: 0;
   --g: 98;
@@ -32,8 +38,7 @@
 }
 
 html {
-  font-family: "DM Sans", "Roboto", sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont;
+  font-family: "DM Sans", "Roboto", sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
   font-size: 62.5%;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -63,6 +68,7 @@ h3 {
 h1,
 h2,
 h3 {
+  font-family: "TT Interface";
   line-height: var(--line-height-h);
 }
 

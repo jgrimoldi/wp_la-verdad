@@ -1,0 +1,29 @@
+
+//Rewrite to www
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^laverdadrn.com.ar[nc]
+RewriteRule ^(.*)$ http://www.laverdadrn.com.ar/$1 [r=301,nc]
+
+//301 Redirect Old File
+Redirect 301 /index.php /index.php?section=Noticias
+
+//301 Redirect Entire Directory
+RedirectMatch 301 /(.*) //$1
+
+//Caching schema
+<FilesMatch "\.(jpg|png|gif|svg|css|js)$">
+Header set Cache-Control "max-age=3600"
+</FilesMatch>
+
+//Custom 404 errors
+ErrorDocument 404 /404.php
+
+//Change default directory page
+DirectoryIndex /
+
+//Prevent viewing of .htaccess file
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
