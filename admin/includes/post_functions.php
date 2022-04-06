@@ -153,8 +153,9 @@ function createPost($request_values)
             if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                 $basename = pathinfo($target);
                 $destination = $folder . $basename['filename'] . '.webp';
-                $featured_image = $basename['filename'] . '.webp';
                 WebPConvert::convert($target, $destination, $options);
+
+                $featured_image = renameImage($destination, $title);
                 unlink($target);
             } else {
                 array_push($errors, "No se pudo subir el archivo.");
@@ -258,8 +259,9 @@ function updatePost($request_values)
                 if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                     $basename = pathinfo($target);
                     $destination = $folder . $basename['filename'] . '.webp';
-                    $featured_image = $basename['filename'] . '.webp';
                     WebPConvert::convert($target, $destination, $options);
+
+                    $featured_image = renameImage($destination, $title);
                     unlink($target);
                 } else {
                     array_push($errors, "No se pudo subir el archivo.");
@@ -349,3 +351,17 @@ function togglePinnedPost($post_id, $message)
         exit(0);
     }
 }
+
+function renameImage($oldName, $title){
+
+    $expr = '/(?<=\s|^)[a-z]/i';
+    preg_match_all($expr, $title, $matches);
+    $acronym = strtoupper(implode('', $matches[0]));
+    $number = rand(0, 11111111111);
+    $newName = $acronym . "_" . $number . ".webp";
+    $newUbication = ROOT_PATH . '/static/img/uploads/' . $newName;
+    rename($oldName, $newUbication);
+
+    return $newName;
+}
+
