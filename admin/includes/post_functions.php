@@ -1,4 +1,11 @@
 <?php
+
+include ROOT_PATH . '/admin/vendor/autoload.php';
+
+use WebPConvert\WebPConvert;
+
+$options = [];
+
 // Post variables
 $post_id = 0;
 $isEditingPost = false;
@@ -102,7 +109,8 @@ function getPostAuthorById($user_id)
 
 function createPost($request_values)
 {
-    global $connection, $errors, $title, $subtitle, $fileName, $topic_id, $body, $published;
+    global $connection, $errors, $title, $subtitle, $fileName, $topic_id, $body, $published, $options;
+
     $title = stringEscape($request_values['title']);
     $subtitle = stringEscape($request_values['subtitle']);
     $body = htmlentities(stringEscape($request_values['body']));
@@ -146,7 +154,8 @@ function createPost($request_values)
                 $basename = pathinfo($target);
                 $destination = $folder . $basename['filename'] . '.webp';
                 $featured_image = $basename['filename'] . '.webp';
-                convertImageToWebP($target,  $destination, 100);
+                WebPConvert::convert($target, $destination, $options);
+                unlink($target);
             } else {
                 array_push($errors, "No se pudo subir el archivo.");
             }
@@ -207,7 +216,7 @@ function editPost($role_id)
 
 function updatePost($request_values)
 {
-    global $connection, $errors, $post_id, $title, $subtitle, $views, $featured_image, $topic_id, $body, $published;
+    global $connection, $errors, $post_id, $title, $subtitle, $views, $featured_image, $topic_id, $body, $published, $options;
 
     $title = stringEscape($request_values['title']);
     $subtitle = stringEscape($request_values['subtitle']);
@@ -250,7 +259,8 @@ function updatePost($request_values)
                     $basename = pathinfo($target);
                     $destination = $folder . $basename['filename'] . '.webp';
                     $featured_image = $basename['filename'] . '.webp';
-                    convertImageToWebP($target,  $destination, 100);
+                    WebPConvert::convert($target, $destination, $options);
+                    unlink($target);
                 } else {
                     array_push($errors, "No se pudo subir el archivo.");
                 }
@@ -284,7 +294,7 @@ function updatePost($request_values)
 // delete blog post
 function deletePost($post_id)
 {
-    global $connection;
+    global $connection, $errors;
 
     //Delete Image from post
     $sql = "SELECT image FROM posts WHERE id=$post_id LIMIT 1";
@@ -298,6 +308,8 @@ function deletePost($post_id)
             header("location: postmanager.php");
             exit(0);
         }
+    } else {
+        array_push($errors, "No se puede borrar la imagen o no existe");
     }
 }
 
@@ -336,14 +348,4 @@ function togglePinnedPost($post_id, $message)
         header("location: postmanager.php");
         exit(0);
     }
-}
-
-
-function convertImageToWebP($source, $destination, $quality = 100)
-{
-    $webp = ROOT_PATH . "/libwebp/bin/cwebp";
-
-    exec("{$webp} -q {$quality} {$source} -o {$destination}");
-
-    unlink($source);
 }
