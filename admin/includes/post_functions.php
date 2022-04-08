@@ -175,13 +175,13 @@ function createPost($request_values)
         $featured_image = $video[1];
         $video = $video[0];
 
-        if(!empty($featured_image)){
+        if (!empty($featured_image)) {
             $target = $folder . $featured_image;
 
             $basename = pathinfo($target);
             $destination = $folder . $basename['filename'] . '.webp';
             WebPConvert::convert($target, $destination, $options);
-    
+
             $featured_image = renameImage($destination, $title);
             unlink($target);
         }
@@ -225,7 +225,7 @@ function createPost($request_values)
 
 function editPost($role_id)
 {
-    global $connection, $title, $subtitle, $views, $post_slug, $body, $published, $featured_image, $isEditingPost, $post_id;
+    global $connection, $title, $subtitle, $views, $post_slug, $body, $published, $featured_image, $video, $isEditingPost, $post_id;
     $sql = "SELECT * FROM posts WHERE id=$role_id LIMIT 1";
     $result = mysqli_query($connection, $sql);
     $post = mysqli_fetch_assoc($result);
@@ -235,11 +235,12 @@ function editPost($role_id)
     $body = $post['body'];
     $published = $post['published'];
     $featured_image = $post['image'];
+    $video = $post['video'];
 }
 
 function updatePost($request_values)
 {
-    global $connection, $errors, $post_id, $title, $subtitle, $views, $featured_image, $topic_id, $body, $published, $options;
+    global $connection, $errors, $post_id, $title, $subtitle, $views, $featured_image, $video, $topic_id, $body, $published, $options;
 
     $title = stringEscape($request_values['title']);
     $subtitle = stringEscape($request_values['subtitle']);
@@ -248,6 +249,12 @@ function updatePost($request_values)
 
     if (isset($request_values['f_image'])) {
         $featured_image = stringEscape($request_values['f_image']);
+    }
+
+    if (isset($request_values['video_frame'])) {
+        $new = makeVideoSlug($request_values['video_frame']);
+        $newVideo = $new[0];
+        $newImage =  $new[1];
     }
 
     if (isset($request_values['publish'])) {
@@ -294,9 +301,34 @@ function updatePost($request_values)
         }
     }
 
+    if (!empty($newVideo)) {
+        $sql = "SELECT video FROM posts WHERE id=$post_id LIMIT 1";
+        $result = mysqli_query($connection, $sql);
+        $post = mysqli_fetch_assoc($result);
+        $video = $post['video'];
+
+        if ($video != $newVideo) {
+
+            $folder = ROOT_PATH . "/static/img/uploads/";
+            $featured_image = $new[1];
+            $video = $new[0];
+
+            if (!empty($featured_image)) {
+                $target = $folder . $featured_image;
+
+                $basename = pathinfo($target);
+                $destination = $folder . $basename['filename'] . '.webp';
+                WebPConvert::convert($target, $destination, $options);
+
+                $featured_image = renameImage($destination, $title);
+                unlink($target);
+            }
+        }
+    }
+
     // register topic if there are no errors in the form
     if (count($errors) == 0) {
-        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
+        $query = "UPDATE posts SET title='$title', subtitle='$subtitle', slug='$post_slug', image='$featured_image', video = '$newVideo', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
         // attach topic to post on post_topic table
         if (mysqli_query($connection, $query)) { // if post created successfully
             if (isset($topic_id)) {
@@ -400,13 +432,15 @@ function makeVideoSlug($url)
     $replace[1] = 'width=560';
     $replace[2] = 'embed/';
 
+    $newUrl = preg_replace($pattern, $replace, $url);
+
     if (strlen($url) < 70) {
-        $thumb = makeYoutubeThumb($url);
+        $thumb = makeYoutubeThumb($newUrl);
     } else {
         // $thumb = 
     }
 
-    $result = array(preg_replace($pattern, $replace, $url), $thumb);
+    $result = array($newUrl, $thumb);
 
     return $result;
 }
@@ -416,9 +450,9 @@ function makeYoutubeThumb($url)
 {
 
     $parsed = parse_url($url);
-    $pattern = "/v=/";
+    $pattern = "/\/embed\//";
     $replace = "";
-    $query = preg_replace($pattern, $replace, $parsed['query']);
+    $query = preg_replace($pattern, $replace, $parsed['path']);
     $file = "https://i2.ytimg.com/vi/" . $query . "/maxresdefault.jpg";
     $image = ROOT_PATH . '/static/img/uploads/' . $query . '.jpg';
 
