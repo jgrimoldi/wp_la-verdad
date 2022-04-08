@@ -33,7 +33,15 @@
             <input class="form__inputs-input" type="text" name="title" id="title" placeholder="Título de la Noticia" value="<?php echo $title ?>">
             <input class="form__inputs-input" type="text" name="subtitle" id="subtitle" placeholder="Subtítulo de la Noticia" value="<?php echo $subtitle ?>">
             <!-- ---- file input for img ---- -->
-            <input class="form__inputs-input input-file" type="file" name="featured_image" id="featured_image">
+            <div class="form__inputs-group">
+              <input class="form__inputs-input d-none" type="url" name="video_frame" id="video_frame" placeholder="https://www.youtube.com/embed/_ce7WX4l55A" value="<?php echo $video ?>">
+              <input class="form__inputs-input input-file" type="file" name="featured_image" id="featured_image">
+              <select class="form__inputs-input" name="post_frame" id="post_frame">
+                <option value="0" selected>Imagen</option>
+                <option value="1">Video</option>
+              </select>
+            </div>
+
             <select class="form__inputs-input" name="topic_id" id="topic_id">
               <?php if (empty($topics)) : ?>
                 <option value="" selected disabled>LA CAJAS DE TEMAS ESTA VACÍA :C</option>

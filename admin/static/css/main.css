@@ -56,6 +56,15 @@ i {
   padding-top: 10rem;
 }
 
+.input-file {
+  display: inherit !important;
+  visibility: visible;
+}
+
+.d-none{
+  display: none !important;
+}
+
 /* ---- collapsible ---- */
 .menu {
   height: 8rem;
@@ -438,6 +447,19 @@ input[type="file"] {
   text-transform: uppercase;
 }
 
+.form__inputs-group{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.form__inputs-group .form__inputs-input{
+  width: 100%;
+  max-width: 320px;
+  margin: 0;
+}
+
 .btn-submit {
   background-color: var(--background-navbar);
   border: 2px solid var(--background-navbar);
@@ -462,10 +484,6 @@ input[type="file"] {
 }
 
 /* ---- posts create ---- */
-.input-file {
-  display: inherit !important;
-  visibility: visible;
-}
 
 .input-textarea {
   border: 2px solid var(--background-navbar);

@@ -15,6 +15,7 @@ $subtitle = "";
 $post_slug = "";
 $body = "";
 $featured_image = "";
+$video = "";
 $post_topic = "";
 
 /* - - - - - - - - - - 
@@ -109,10 +110,11 @@ function getPostAuthorById($user_id)
 
 function createPost($request_values)
 {
-    global $connection, $errors, $title, $subtitle, $fileName, $topic_id, $body, $published, $options;
+    global $connection, $errors, $title, $subtitle, $featured_image, $video, $topic_id, $body, $published, $options;
 
     $title = stringEscape($request_values['title']);
     $subtitle = stringEscape($request_values['subtitle']);
+    $video = stringEscape($request_values['video_frame']);
     $body = htmlentities(stringEscape($request_values['body']));
 
     if (isset($request_values['topic_id'])) {
@@ -143,12 +145,15 @@ function createPost($request_values)
     // Get image name
     $folder = ROOT_PATH . "/static/img/uploads/";
     $allowedTypes = array('jpg', 'png', 'jpeg', 'gif', 'mp4', 'mkv');
-    $fileName = $_FILES['featured_image']['name'];
-    if (!empty($fileName)) {
-        $fileName = basename($_FILES['featured_image']['name']);
-        $target = $folder . $fileName;
+    $featured_image = $_FILES['featured_image']['name'];
+
+    if (!empty($featured_image)) {
+
+        $featured_image = basename($_FILES['featured_image']['name']);
+        $target = $folder . $featured_image;
 
         $fileType = pathinfo($target, PATHINFO_EXTENSION);
+
         if (in_array($fileType, $allowedTypes)) {
             if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                 $basename = pathinfo($target);
@@ -165,6 +170,23 @@ function createPost($request_values)
         }
     }
 
+    if (!empty($video)) {
+        $video = makeVideoSlug($video);
+        $featured_image = $video[1];
+        $video = $video[0];
+
+        if(!empty($featured_image)){
+            $target = $folder . $featured_image;
+
+            $basename = pathinfo($target);
+            $destination = $folder . $basename['filename'] . '.webp';
+            WebPConvert::convert($target, $destination, $options);
+    
+            $featured_image = renameImage($destination, $title);
+            unlink($target);
+        }
+    }
+
     // Ensure that no post is saved twice. 
     $post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
     $result = mysqli_query($connection, $post_check_query);
@@ -175,8 +197,8 @@ function createPost($request_values)
 
     // create post if there are no errors in the form
     if (count($errors) == 0) {
-        if (!empty($fileName)) {
-            $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$featured_image', '$body', $published)";
+        if (!empty($featured_image) || !empty($video)) {
+            $query = "INSERT INTO posts (user_id, title, subtitle, slug, image, video, body, published) VALUES(1, '$title', '$subtitle', '$post_slug', '$featured_image', '$video', '$body', $published)";
             if (mysqli_query($connection, $query)) { // if post created successfully
                 $inserted_post_id = mysqli_insert_id($connection);
                 // create relationship between post and topic
@@ -303,15 +325,12 @@ function deletePost($post_id)
     $result = mysqli_query($connection, $sql);
     $post = mysqli_fetch_assoc($result);
 
-    if (unlink(ROOT_PATH . '/static/img/uploads/' . $post['image'])) {
-        $sql_delete = "DELETE FROM posts WHERE id=$post_id";
-        if (mysqli_query($connection, $sql_delete)) {
-            $_SESSION['message'] = "Nos despedimos del post :(";
-            header("location: postmanager.php");
-            exit(0);
-        }
-    } else {
-        array_push($errors, "No se puede borrar la imagen o no existe");
+    unlink(ROOT_PATH . '/static/img/uploads/' . $post['image']);
+    $sql_delete = "DELETE FROM posts WHERE id=$post_id";
+    if (mysqli_query($connection, $sql_delete)) {
+        $_SESSION['message'] = "Nos despedimos del post :(";
+        header("location: postmanager.php");
+        exit(0);
     }
 }
 
@@ -352,7 +371,8 @@ function togglePinnedPost($post_id, $message)
     }
 }
 
-function renameImage($oldName, $title){
+function renameImage($oldName, $title)
+{
 
     $expr = '/(?<=\s|^)[a-z]/i';
     preg_match_all($expr, $title, $matches);
@@ -365,3 +385,44 @@ function renameImage($oldName, $title){
     return $newName;
 }
 
+function makeVideoSlug($url)
+{
+    $thumb = "";
+
+    $pattern = array();
+    $pattern[0] = '/height=[0-9]{1,3}/';
+    $pattern[1] = '/width=[0-9]{1,3}/';
+    $pattern[2] = '/watch\?v=/';
+
+
+    $replace = array();
+    $replace[0] = 'height=315';
+    $replace[1] = 'width=560';
+    $replace[2] = 'embed/';
+
+    if (strlen($url) < 70) {
+        $thumb = makeYoutubeThumb($url);
+    } else {
+        // $thumb = 
+    }
+
+    $result = array(preg_replace($pattern, $replace, $url), $thumb);
+
+    return $result;
+}
+
+
+function makeYoutubeThumb($url)
+{
+
+    $parsed = parse_url($url);
+    $pattern = "/v=/";
+    $replace = "";
+    $query = preg_replace($pattern, $replace, $parsed['query']);
+    $file = "https://i2.ytimg.com/vi/" . $query . "/maxresdefault.jpg";
+    $image = ROOT_PATH . '/static/img/uploads/' . $query . '.jpg';
+
+    file_put_contents($image, file_get_contents($file));
+
+    return $query . '.jpg';
+}

@@ -20,3 +20,17 @@ checkbox.onclick = () => {
         email.style.display = "none";
     }
 }
+
+let video_frame = document.querySelector('#video_frame');
+let featured_image = document.querySelector('#featured_image');
+let post_frame = document.querySelector('#post_frame');
+
+post_frame.onchange = () => {
+    if(post_frame.value == 0 ){
+        featured_image.classList.toggle('d-none');
+        video_frame.classList.toggle('d-none');
+    }else if(post_frame.value == 1){
+        featured_image.classList.toggle('d-none');
+        video_frame.classList.toggle('d-none');
+    }
+}

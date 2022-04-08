@@ -62,13 +62,15 @@
                         <div class="post__background">
                             <h1 class="post__title"><?php echo $post['title']; ?></h1>
                             <h2 class="post__subtitle"><?php echo $post['subtitle']; ?></h2>
-                            <div class="post__imgs">
-                                <?php if (isset($post['video'])) : ?>
-                                    <iframe class="post__imgs-iframe" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F109301787920924%2Fvideos%2F302222865403254%2F&show_text=false&width=560&t=0" width="560" height="650" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-                                <?php else : ?>
+                            <?php if (!empty($post['video'])) : ?>
+                                <div class="post__iframe">
+                                    <iframe width="560" height="315" src="<?php echo $post['video'] ?>" title="<?php echo $post['title'] ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            <?php else : ?>
+                                <div class="post__imgs">
                                     <img loading="lazy" class="post__imgs-img" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $post['image'] ?>" alt="<?php echo $post['title'] ?>">
-                                <?php endif ?>
-                            </div>
+                                </div>
+                            <?php endif ?>
                             <article class="post__body">
                                 <?php echo html_entity_decode($post['body']) ?>
                             </article>
@@ -79,7 +81,15 @@
                             <div class="post__related-news d-flex">
                                 <?php foreach ($latests as $last) : ?>
                                     <div class="related">
-                                        <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['title'] ?>">
+                                        <?php
+                                        if (!empty($last['image'])) {
+                                            echo '<img class="related__img" loading="lazy" width="100" height="100" src=' . BASE_URL . 'static/img/uploads/' . $last['image'] . ' alt=' . $last['image'] . '>';
+                                        } else {
+                                            echo '<div class="post__iframe">';
+                                            echo '<iframe width="560" height="315" src=' . $last['video']  . ' title=' . $last['title']  . ' frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                                            echo '</div>';
+                                        }
+                                        ?>
                                         <div class="related-shadow">
                                             <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
@@ -114,6 +124,8 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
+
+
 
     </body>
 
