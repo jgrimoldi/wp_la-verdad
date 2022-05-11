@@ -354,3 +354,10 @@ footer {
   color: var(--font-color-s);
   text-transform: uppercase;
 }
+
+.errorpage__help .post__links{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}

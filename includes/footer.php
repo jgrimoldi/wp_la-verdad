@@ -1,7 +1,7 @@
 <footer class="container footer">
     <section class="container-fluid footer__navbar d-flex">
         <a class="footer__navbar-link" href="<?php echo BASE_URL . 'contact.php' ?>" target="_blank" rel="noopener noreferrer">Contacto</a>
-        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'terms.php' ?>" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        <a class="footer__navbar-link" href="<?php echo BASE_URL . 'terminos-y-condiciones' ?>" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
         <a class="footer__navbar-link" href="<?php echo BASE_URL . 'classifieds.php' ?>" target="_blank" rel="noopener noreferrer">Clasificados</a>
     </section>
     <section class="container-fluid footer__social d-flex">

@@ -35,7 +35,7 @@
                                         }
                                     ?>
                                     <div class="related-shadow">
-                                        <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug'] ?>">
+                                        <a href="<?php echo BASE_URL . 'noticia/' . $post['slug'] ?>">
                                             <h3 class="related__title"><?php echo $post['title'] ?></h3>
                                         </a>
                                         <div class="related__resume">

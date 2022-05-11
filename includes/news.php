@@ -16,7 +16,7 @@ if (isset($_GET['page'])) {
         <div class="principal d-flex">
             <div class="principal__info">
                 <h3 class="principal__info-title">
-                    <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug'] ?>"><?php echo $post['title'] ?></a>
+                    <a href="<?php echo BASE_URL . 'noticia/' . $post['slug'] ?>"><?php echo $post['title'] ?></a>
                 </h3>
                 <div class="principal__info-resume">
                     <!-- <p><?php // echo html_entity_decode($post['body']) 
@@ -33,7 +33,7 @@ if (isset($_GET['page'])) {
             }
             ?>
             <div class="principal__budgets">
-                <a class="principal__budgets-budget" href="<?php echo BASE_URL . 'filtered_posts.php?topic=' . $post['topic']['id'] ?>" rel="noopener noreferrer"><?php echo $post['topic']['name'] ?></a>
+                <a class="principal__budgets-budget" href="<?php echo BASE_URL . 'relacionados/' . $post['topic']['id'] ?>" rel="noopener noreferrer"><?php echo $post['topic']['name'] ?></a>
             </div>
         </div>
     </div>
@@ -43,10 +43,10 @@ if (isset($_GET['page'])) {
     <div id="pb" class="pagination__buttons">
         <?php for ($i = 0; $i < $total_posts; $i++) : ?>
             <?php if ($i == 0) : ?>
-                <a class="pagination__buttons-btn" href="<?php echo BASE_URL . 'index.php?section=Noticias' ?>" rel="noopener noreferrer" page="<?php $i ?>"><i class="fas fa-home"></i></a>
+                <a class="pagination__buttons-btn" href="<?php echo BASE_URL . 'seccion/Noticias' ?>" rel="noopener noreferrer" page="<?php $i ?>"><i class="fas fa-home"></i></a>
                 <?php continue; ?>
             <?php endif ?>
-            <a class="pagination__buttons-btn" href="<?php echo BASE_URL . 'index.php?section=Noticias&page=' . $i ?>" rel="noopener noreferrer" page="<?php $i ?>"><?php echo $i ?></a>
+            <a class="pagination__buttons-btn" href="<?php echo BASE_URL . 'seccion/Noticias/' . $i ?>" rel="noopener noreferrer" page="<?php $i ?>"><?php echo $i ?></a>
         <?php endfor ?>
     </div>
     <div class="pagination__scroll">

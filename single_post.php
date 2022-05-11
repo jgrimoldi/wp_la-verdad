@@ -39,7 +39,7 @@
                                     <div class="related">
                                         <img class="related__img" loading="lazy" width="100" height="100" src="<?php echo BASE_URL . 'static/img/uploads/' . $last['image'] ?>" alt="<?php echo $last['title'] ?>">
                                         <div class="related-shadow">
-                                            <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
+                                            <a href="<?php echo BASE_URL . 'noticia/' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
                                             </a>
                                             <div class="related__resume">
@@ -74,7 +74,7 @@
                             <article class="post__body">
                                 <?php echo html_entity_decode($post['body']) ?>
                             </article>
-                            <div class="fb-share-button" data-href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $post['slug']  ?>" data-layout="button_count" data-size="small">Compartir</div>
+                            <div class="fb-share-button" data-href="<?php echo BASE_URL . 'noticia/' . $post['slug']  ?>" data-layout="button_count" data-size="small">Compartir</div>
                         </div>
                         <article class="post__related">
                             <h2 class="post__related-title">Últimas Noticias</h2>
@@ -91,7 +91,7 @@
                                         }
                                         ?>
                                         <div class="related-shadow">
-                                            <a href="<?php echo BASE_URL . 'single_post.php?post-slug=' . $last['slug'] ?>">
+                                            <a href="<?php echo BASE_URL . 'noticia/' . $last['slug'] ?>">
                                                 <h3 class="related__title"><?php echo $last['title'] ?></h3>
                                             </a>
                                             <div class="related__resume">

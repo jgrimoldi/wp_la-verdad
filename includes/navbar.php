@@ -11,9 +11,9 @@
 
 <nav class="container navbar active">
     <div class="container-fluid navbar__container d-flex">
-        <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php?section=Noticias' ?>">Noticias</a>
-        <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php?section=Busquedas' ?>">Búsquedas</a>
-        <a class="navbar__container-link" href="<?php echo BASE_URL . 'index.php?section=Empleos' ?>">Empleos</a>
+        <a class="navbar__container-link" href="<?php echo BASE_URL . 'seccion/Noticias' ?>">Noticias</a>
+        <a class="navbar__container-link" href="<?php echo BASE_URL . 'seccion/Busquedas' ?>">Búsquedas</a>
+        <a class="navbar__container-link" href="<?php echo BASE_URL . 'seccion/Empleos' ?>">Empleos</a>
     </div>
 </nav>
 

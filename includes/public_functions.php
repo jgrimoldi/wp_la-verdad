@@ -19,7 +19,7 @@ function getPublishedPosts($limit, $offset)
 {
     global $connection;
     // $sql_posts = "SELECT * FROM posts WHERE published = true ORDER BY created_at DESC, pinned ASC";
-    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC LIMIT " . $offset . "," . $limit;
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id IN (SELECT id FROM topics WHERE name <> 'Empleos' AND name <> 'Búsquedas')) ORDER BY `posts`.`pinned` DESC, `posts`.`id` DESC LIMIT " . $offset . "," . $limit;
     $query_posts = mysqli_query($connection, $sql_posts);
 
     $posts = mysqli_fetch_all($query_posts, MYSQLI_ASSOC);
@@ -39,7 +39,7 @@ function getPublishedPosts($limit, $offset)
 function getPublishedPostBy($topic)
 {
     global $connection;
-    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id = (SELECT id FROM topics WHERE name = '" . $topic . "')) ORDER BY `posts`.`pinned` DESC, `posts`.`created_at` DESC";
+    $sql_posts = "SELECT * FROM posts WHERE published = '1' AND id IN (SELECT `post_id` FROM post_topic WHERE topic_id = (SELECT id FROM topics WHERE name = '" . $topic . "')) ORDER BY `posts`.`pinned` DESC, `posts`.`id` DESC";
 
     $query_posts = mysqli_query($connection, $sql_posts);
 

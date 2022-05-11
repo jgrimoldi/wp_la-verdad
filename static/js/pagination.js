@@ -1,5 +1,5 @@
 var page = window.location.href.match(/[^/]+$/)[0];
-let base_url = `http://laverdadrn.com.ar/`;
+let base_url = `https://laverdadrn.com.ar/`;
 let anchor = document.querySelector('.pagination__buttons-btn[href = "' + base_url + page + '"');
 
 if(anchor){
